@@ -43,7 +43,7 @@ const blogPosts = [
 
       <blockquote>The best pitches make the judges feel the user's pain before they see a single line of code.</blockquote>
 
-      <p>Huge thanks to the Datapizza mentors who kept us sane, and to the organizers who pulled off the event. The repo is up on <a href="https://github.com/TommasoAiello08/Pydeia" target="_blank" rel="noopener">GitHub</a> if you're curious.</p>
+      <p>Huge thanks to the Datapizza mentors who kept us sane, and to the organizers who pulled off the event. The repo is up on <a href="https://github.com/AielloTommaso/Pydeia" target="_blank" rel="noopener">GitHub</a> if you're curious.</p>
     `
   },
   {
