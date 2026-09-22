@@ -43,11 +43,6 @@ html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg-dark);
-  background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/background.jpg");
-  background-size: auto, cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
   color: var(--paper-dim);
   font-family: var(--font-body);
   font-size: 17px;
@@ -109,10 +104,23 @@ ul { list-style: none; }
   display: flex; flex-direction: column; justify-content: center;
   padding: calc(var(--nav-h) + 2.5rem) 1.5rem 3rem;
 }
+.bg-band {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  pointer-events: none;
+}
+[data-band="1"] { background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-1.jpg"); }
+[data-band="2"] { background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-2.jpg"); }
+[data-band="3"] { background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-3.jpg"); }
+[data-band="4"] { background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-4.jpg"); }
+[data-band="5"] { background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-5.jpg"); }
+[data-band="6"] { background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-6.jpg"); }
 .hero-inner {
+  position: relative; z-index: 1;
   max-width: var(--max-w); margin: 0 auto; width: 100%;
   display: grid; grid-template-columns: 300px 1fr; gap: 3.5rem; align-items: center;
 }
+.hero-rule { position: relative; z-index: 1; margin-top: 3.4rem; }
 .hero-photo { position: relative; z-index: 1; }
 .hero-photo img {
   width: 100%; aspect-ratio: 4/5; object-fit: cover;
@@ -143,7 +151,6 @@ ul { list-style: none; }
 .eq-5 { bottom: 10%; right: 26%; font-size: 1.5rem; transform: rotate(-5deg); }
 .eq-6 { top: 22%; left: 40%; font-size: 1.3rem; transform: rotate(4deg); }
 
-.hero-rule { margin-top: 3.4rem; }
 .hero-rule .container-rule { display: flex; align-items: center; gap: 1rem; max-width: var(--max-w); margin: 0 auto; }
 .rule-line { height: 1px; background: var(--rule); flex: 1; }
 .rule-diamond { color: var(--amber); font-size: 0.72rem; }
@@ -162,10 +169,10 @@ ul { list-style: none; }
 
 /* ---------------- Sections ---------------- */
 
-.section { padding: 5.5rem 1.5rem; }
-.section-alt { background: var(--scrim-2); }
-.section-contact { background: linear-gradient(180deg, var(--scrim-2), var(--scrim)); }
-.container { max-width: var(--max-w); margin: 0 auto; }
+.section { position: relative; padding: 5.5rem 1.5rem; overflow: hidden; }
+.section-alt { background: transparent; }
+.section-contact { background: none; }
+.container { position: relative; z-index: 1; max-width: var(--max-w); margin: 0 auto; }
 
 .section-num { color: var(--amber); font-size: 0.84rem; margin-bottom: 0.4rem; font-family: var(--font-mono); }
 .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2.4rem; }
@@ -246,11 +253,12 @@ ul { list-style: none; }
 /* ---------------- Footer ---------------- */
 
 .footer {
+  position: relative; overflow: hidden;
   border-top: 1px solid var(--rule);
   padding: 2.2rem 1.5rem; text-align: center;
-  background: rgba(7, 13, 23, 0.5);
+  background: transparent;
 }
-.footer p { color: var(--paper-fainter); font-size: 0.92rem; }
+.footer p { position: relative; z-index: 1; color: var(--paper-fainter); font-size: 0.92rem; }
 .footer-colophon { font-family: var(--font-mono); font-size: 0.78rem; margin-top: 0.5rem; color: var(--paper-fainter); }
 
 /* ---------------- Reveal ---------------- */
@@ -259,6 +267,14 @@ ul { list-style: none; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 /* ---------------- Blog ---------------- */
 
+body.blog {
+  background-color: var(--bg-dark);
+  background-image: linear-gradient(var(--scrim), var(--scrim)), url("../assets/bg-band-1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 .page-hero {
   padding: calc(var(--nav-h) + 3.5rem) 1.5rem 2.5rem; text-align: center;
   border-bottom: 1px solid var(--rule);
