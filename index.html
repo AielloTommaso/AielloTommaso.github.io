@@ -7,7 +7,7 @@
   <meta name="description" content="Tommaso Aiello — MSc Artificial Intelligence at Bocconi University. Research in statistical physics and diffusion processes, generative models, and applied mathematics." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="home">
@@ -34,22 +34,14 @@
   <main id="main">
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="top">
-      <div class="hero-eq" aria-hidden="true">
-        <span class="eq-1">∂<sub>t</sub> x = −x + √2 D ξ</span>
-        <span class="eq-2">S<sub>μ</sub>(x,t) = Σ<sub>i</sub> log cosh(…)</span>
-        <span class="eq-3">Z<sub>μ</sub> = Π 2cosh(βh<sub>i</sub>)</span>
-        <span class="eq-4">∫ e<sup>βH</sup> dx</span>
-        <span class="eq-5">π ≈ 3.14159…</span>
-        <span class="eq-6">N (μ, Σ)</span>
-      </div>
       <div class="hero-inner">
-        <figure class="hero-photo reveal">
+        <figure class="hero-photo">
           <img src="assets/tommaso-aiello.jpg" alt="Portrait of Tommaso Aiello" width="320" height="400" />
         </figure>
-        <div class="hero-text reveal">
+        <div class="hero-text">
           <p class="hero-institution mono">Bocconi University · MSc Artificial Intelligence</p>
           <h1 class="hero-title">Tommaso Aiello</h1>
-          <p class="hero-role mono">AI Researcher · Applied Mathematician · Writer</p>
+          <p class="hero-role mono">AI Researcher <em>·</em> Applied Mathematician <em>·</em> Writer</p>
           <p class="hero-bio">
             I work at the boundary of statistical physics and machine learning,
             studying diffusion processes and the structure of generative models.
@@ -65,81 +57,91 @@
           </div>
         </div>
       </div>
-      <div class="hero-rule" aria-hidden="true">
-        <span class="rule-line"></span><span class="rule-diamond">◆</span><span class="rule-line"></span>
-      </div>
     </section>
 
     <!-- ===================== WORK ===================== -->
     <section class="section" id="work">
       <div class="container">
-        <p class="section-num mono reveal">§ 01</p>
-        <h2 class="section-title reveal">Selected Work</h2>
-        <div class="work-grid">
-          <article class="work-card work-card-feature reveal">
-            <p class="card-kind mono">Research · Statistical Physics · 2026 — Present</p>
-            <h3 class="card-title">Curie–Weiss &amp; Diffusion</h3>
-            <p class="card-abstract">
+        <p class="section-label mono">§ 01</p>
+        <h2 class="section-title">Selected Work</h2>
+        <div class="bento">
+          <article class="proj proj-feature">
+            <p class="proj-kind mono">Featured</p>
+            <h3 class="proj-title">Curie–Weiss &amp; Diffusion</h3>
+            <p class="proj-abstract">
               A mixture-of-Boltzmann model coupled to an Ornstein–Uhlenbeck
               diffusion channel. Analytical study of when the posterior over
               latent patterns concentrates on a single winner — exact diffusion
               likelihoods, RMS selection criteria, and spinodal times from the
               Hessian spectrum across hierarchical templates.
             </p>
-            <div class="card-tags">
-              <span>diffusion processes</span><span>statistical mechanics</span><span>phase transitions</span>
+            <div class="proj-meta">
+              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Research</span></div>
+              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Statistical physics</span></div>
+              <div class="hud"><span class="hud-label">YEAR</span><span class="hud-value">2026 — Present</span></div>
+              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">Active</span></div>
+              <div class="hud"><span class="hud-label">STACK</span><span class="hud-value">diffusion · statistical mechanics</span></div>
             </div>
-            <div class="card-links">
-              <a href="assets/research-curie-weiss-diffusion.pdf" class="btn btn-primary" download>Read the paper ↗</a>
+            <div class="proj-links">
+              <a href="assets/research-curie-weiss-diffusion.pdf" class="btn btn-primary" download>Read the paper <span class="lk-arrow">↗</span></a>
             </div>
           </article>
 
-          <article class="work-card reveal">
-            <p class="card-kind mono">Agentic AI · 🏆 1st place, InnovAIte</p>
-            <h3 class="card-title">Pydeia</h3>
-            <p class="card-abstract">
+          <article class="proj proj-side">
+            <p class="proj-kind mono">Project</p>
+            <h3 class="proj-title">Pydeia</h3>
+            <p class="proj-abstract">
               Conversational assistant that matches high-school students with
               bachelor's programs, driven by semantic recommendations and the
               hosted agentic framework. Built in 24 hours with four teammates.
             </p>
-            <div class="card-tags">
-              <span>Flask</span><span>React</span><span>agentic AI</span>
+            <div class="proj-meta">
+              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Hackathon</span></div>
+              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Agentic AI</span></div>
+              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">1st place · InnovAIte</span></div>
+              <div class="hud"><span class="hud-label">STACK</span><span class="hud-value">Flask · React</span></div>
             </div>
-            <div class="card-links">
-              <a href="https://github.com/AielloTommaso/Pydeia" target="_blank" rel="noopener">Repo ↗</a>
+            <div class="proj-links">
+              <a href="https://github.com/AielloTommaso/Pydeia" target="_blank" rel="noopener" class="read-link">Repo <span class="lk-arrow">↗</span></a>
             </div>
           </article>
 
-          <article class="work-card reveal">
-            <p class="card-kind mono">Bachelor's Thesis · Oct '24 – Jul '25</p>
-            <h3 class="card-title">Diffusion Models on Hierarchical Data</h3>
-            <p class="card-abstract">
+          <article class="proj proj-side">
+            <p class="proj-kind mono">Research</p>
+            <h3 class="proj-title">Diffusion Models on Hierarchical Data</h3>
+            <p class="proj-abstract">
               A modular framework generating hierarchical sequences, with
               Transformer denoisers probing how data structure and noise
               schedules shape reconstruction quality — and the phase
               transitions in learning capacity they reveal.
             </p>
-            <div class="card-tags">
-              <span>transformers</span><span>diffusion</span><span>hierarchical data</span>
+            <div class="proj-meta">
+              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Thesis</span></div>
+              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Diffusion · hierarchical data</span></div>
+              <div class="hud"><span class="hud-label">YEAR</span><span class="hud-value">Oct '24 – Jul '25</span></div>
+              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">Completed</span></div>
             </div>
-            <div class="card-links">
-              <a href="https://github.com/AielloTommaso/DIffusion_Processes_for_Generative_Hierchical_Models" target="_blank" rel="noopener">Repo ↗</a>
+            <div class="proj-links">
+              <a href="https://github.com/AielloTommaso/DIffusion_Processes_for_Generative_Hierchical_Models" target="_blank" rel="noopener" class="read-link">Repo <span class="lk-arrow">↗</span></a>
             </div>
           </article>
 
-          <article class="work-card reveal">
-            <p class="card-kind mono">Computer Vision · Course project</p>
-            <h3 class="card-title">Two-View 3D Reconstruction</h3>
-            <p class="card-abstract">
+          <article class="proj proj-wide">
+            <p class="proj-kind mono">Project</p>
+            <h3 class="proj-title">Two-View 3D Reconstruction</h3>
+            <p class="proj-abstract">
               Full pipeline from camera calibration to triangulation — SIFT
               feature matching, eight-point estimation, and epipolar geometry —
               reconstructing scenes from two views.
             </p>
-            <div class="card-tags">
-              <span>OpenCV</span><span>epipolar geometry</span><span>SIFT</span>
+            <div class="proj-meta">
+              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Course project</span></div>
+              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Computer vision</span></div>
+              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">Complete</span></div>
+              <div class="hud"><span class="hud-label">STACK</span><span class="hud-value">OpenCV · SIFT</span></div>
             </div>
-            <div class="card-links">
-              <a href="https://github.com/AielloTommaso/Computer-Vision-Project" target="_blank" rel="noopener">Repo ↗</a>
+            <div class="proj-links">
+              <a href="https://github.com/AielloTommaso/Computer-Vision-Project" target="_blank" rel="noopener" class="read-link">Repo <span class="lk-arrow">↗</span></a>
             </div>
           </article>
         </div>
@@ -147,24 +149,22 @@
     </section>
 
     <!-- ===================== PATH ===================== -->
-    <section class="section section-alt" id="path">
+    <section class="section" id="path">
       <div class="container">
-        <p class="section-num mono reveal">§ 02</p>
-        <h2 class="section-title reveal">The Path</h2>
-        <div class="path-timeline">
-          <div class="path-item reveal">
-            <span class="path-dot"></span>
-            <div class="path-card">
-              <p class="path-date mono">Jan 2026 — Present</p>
+        <p class="section-label mono">§ 02</p>
+        <h2 class="section-title">The Path</h2>
+        <div class="path-rows">
+          <div class="path-row">
+            <p class="path-date mono">Jan 2026 — Present</p>
+            <div class="path-body">
               <h3>Research — Statistical Physics &amp; Diffusion Processes</h3>
               <p class="path-where">Bocconi University · Milan</p>
               <p class="path-desc">Theoretical study of diffusion in mean-field models — phase selection, transition timescales, and stability in Curie–Weiss and hierarchical systems.</p>
             </div>
           </div>
-          <div class="path-item reveal">
-            <span class="path-dot"></span>
-            <div class="path-card">
-              <p class="path-date mono">2025 — 2027</p>
+          <div class="path-row">
+            <p class="path-date mono">2025 — 2027</p>
+            <div class="path-body">
               <h3>MSc in Artificial Intelligence</h3>
               <p class="path-where">Bocconi University · Average 28.6/30</p>
               <p class="path-desc">
@@ -173,37 +173,33 @@
               </p>
             </div>
           </div>
-          <div class="path-item reveal">
-            <span class="path-dot"></span>
-            <div class="path-card">
-              <p class="path-date mono">Jan 2025 — Jun 2025</p>
+          <div class="path-row">
+            <p class="path-date mono">Jan 2025 — Jun 2025</p>
+            <div class="path-body">
               <h3>Exchange — Applied &amp; Computational Mathematics</h3>
               <p class="path-where">City University of Hong Kong · Hong Kong</p>
               <p class="path-desc">Exchange semester during the Bachelor's, studying stochastic processes and beyond.</p>
             </div>
           </div>
-          <div class="path-item reveal">
-            <span class="path-dot"></span>
-            <div class="path-card">
-              <p class="path-date mono">Oct 2024 — Jul 2025</p>
+          <div class="path-row">
+            <p class="path-date mono">Oct 2024 — Jul 2025</p>
+            <div class="path-body">
               <h3>Bachelor's Thesis — Diffusion Models</h3>
               <p class="path-where">Bocconi University · Milan</p>
               <p class="path-desc">Transformer-based denoisers on hierarchically structured data; phase transitions in reconstruction quality.</p>
             </div>
           </div>
-          <div class="path-item reveal">
-            <span class="path-dot"></span>
-            <div class="path-card">
-              <p class="path-date mono">Jul 2024 — Sep 2024</p>
+          <div class="path-row">
+            <p class="path-date mono">Jul 2024 — Sep 2024</p>
+            <div class="path-body">
               <h3>Data Analyst Intern — Customer &amp; Employee Analytics Lab</h3>
               <p class="path-where">BNL BNP Paribas · Rome</p>
               <p class="path-desc">Net Promoter Score prediction via Markov-chain regression, client analytics with Python &amp; SQL, and Power BI dashboards for asset monitoring.</p>
             </div>
           </div>
-          <div class="path-item reveal">
-            <span class="path-dot"></span>
-            <div class="path-card">
-              <p class="path-date mono">2022 — 2025</p>
+          <div class="path-row">
+            <p class="path-date mono">2022 — 2025</p>
+            <div class="path-body">
               <h3>BSc in Applied Mathematics &amp; Computational Sciences for AI</h3>
               <p class="path-where">Bocconi University · Average 29.1/30</p>
               <p class="path-desc">The foundation: mathematics, probability, statistics, and the first serious lines of code.</p>
@@ -216,46 +212,58 @@
     <!-- ===================== SKILLS ===================== -->
     <section class="section" id="skills">
       <div class="container">
-        <p class="section-num mono reveal">§ 03</p>
-        <h2 class="section-title reveal">Skills</h2>
-        <div class="skill-rows">
-          <div class="skill-row reveal">
-            <span class="skill-label mono">Programming</span>
-            <div class="skill-chips">
-              <span>Python</span><span>SQL</span><span>R</span><span>C</span><span>C++</span><span>JavaScript</span>
-            </div>
+        <p class="section-label mono">§ 03</p>
+        <h2 class="section-title">Skills</h2>
+        <div class="skill-cols">
+          <div class="skill-col">
+            <h3>Mathematics</h3>
+            <ul>
+              <li>Statistical mechanics &amp; phase transitions</li>
+              <li>Stochastic processes &amp; diffusion</li>
+              <li>Probability &amp; mathematical statistics</li>
+              <li>Mean-field models — Curie–Weiss</li>
+              <li>Applied &amp; computational mathematics</li>
+            </ul>
           </div>
-          <div class="skill-row reveal">
-            <span class="skill-label mono">ML &amp; Data</span>
-            <div class="skill-chips">
-              <span>PyTorch</span><span>pandas</span><span>OpenCV</span><span>Power BI</span><span>Git</span>
-            </div>
+          <div class="skill-col">
+            <h3>Machine Learning</h3>
+            <ul>
+              <li>Diffusion &amp; generative models</li>
+              <li>Transformers &amp; representation learning</li>
+              <li>Computer vision — OpenCV · SIFT</li>
+              <li>PyTorch · pandas</li>
+              <li>Hierarchical structured data</li>
+            </ul>
           </div>
-          <div class="skill-row reveal">
-            <span class="skill-label mono">Languages</span>
-            <div class="skill-chips">
-              <span>Italian · native</span><span>English · C1</span><span>French · intermediate</span><span>Spanish · intermediate</span>
-            </div>
+          <div class="skill-col">
+            <h3>Computing</h3>
+            <ul>
+              <li>Python · C · C++ · R · JavaScript · SQL</li>
+              <li>Git workflows</li>
+              <li>Lightweight full-stack — Flask · React</li>
+              <li>Data tooling — Power BI</li>
+            </ul>
           </div>
         </div>
-        <div class="skill-notes reveal">
-          <p class="mono">· full-tuition scholarship, Bocconi University</p>
-          <p class="mono">· regional Mathematics Olympiad finalist, age 15</p>
+        <div class="skill-notes">
+          <p><strong>Languages</strong> — Italian · native, English · C1, French · intermediate, Spanish · intermediate</p>
+          <p>· full-tuition scholarship, Bocconi University</p>
+          <p>· regional Mathematics Olympiad finalist, age 15</p>
         </div>
       </div>
     </section>
 
     <!-- ===================== CONTACT ===================== -->
-    <section class="section section-alt section-contact" id="contact">
+    <section class="section" id="contact">
       <div class="container">
-        <p class="section-num mono reveal">§ 04</p>
-        <h2 class="section-title reveal">Contact</h2>
-        <p class="contact-sub reveal">
+        <p class="section-label mono">§ 04</p>
+        <h2 class="section-title">Contact</h2>
+        <p class="contact-sub">
           Open to research collaboration, thesis positions, and good
           conversations about diffusion models over an espresso.
         </p>
-        <div class="contact-row reveal">
-          <a href="mailto:tommasoaiello@studbocconi.it" class="btn btn-primary">tommasoaiello@studbocconi.it</a>
+        <a href="mailto:tommasoaiello@studbocconi.it" class="contact-email">tommasoaiello@studbocconi.it</a>
+        <div class="contact-row">
           <a href="tel:+393475182845" class="btn btn-ghost mono">+39 347 518 2845</a>
           <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener" class="btn btn-ghost mono">GitHub</a>
           <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener" class="btn btn-ghost mono">LinkedIn</a>
@@ -266,7 +274,7 @@
 
     <footer class="footer">
       <p>© <span id="year">2026</span> Tommaso Aiello</p>
-      <p class="footer-colophon">Typeset in Fraunces &amp; Source Serif 4 · no frameworks, no cookies, no tracking</p>
+      <p class="footer-colophon">Typeset in Inter &amp; IBM Plex Mono · no frameworks, no cookies, no tracking</p>
     </footer>
   </main>
 

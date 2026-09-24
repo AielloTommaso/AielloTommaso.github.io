@@ -55,26 +55,6 @@
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
-  /* ---------- Scroll reveal ---------- */
-
-  const revealEls = $$(".reveal");
-  if ("IntersectionObserver" in window && revealEls.length) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add("visible"));
-  }
-
   /* ---------- Current page detection ---------- */
 
   const root = (function () {
@@ -99,7 +79,7 @@
             .map((t) => '<span class="tag-pill">' + escapeHtml(t) + "</span>")
             .join("");
           return (
-            '<article class="blog-card reveal visible">' +
+            '<article class="blog-card">' +
               '<div class="tags">' + tags + "</div>" +
               '<div class="card-meta"><time datetime="' + escapeHtml(post.date) + '">' +
                 formatDate(post.date) + '</time><span class="dot"></span><span>' +
@@ -108,7 +88,7 @@
                 encodeURIComponent(post.id) + "'>" + escapeHtml(post.title) + "</a></h3>" +
               "<p>" + escapeHtml(post.excerpt || "") + "</p>" +
               '<a class="read-more" href="' + escapeHtml(root + "blog/post.html") +
-                "?id=" + encodeURIComponent(post.id) + '">Read more →</a>' +
+                "?id=" + encodeURIComponent(post.id) + '">Read more <span class="lk-arrow">→</span></a>' +
             "</article>"
           );
         })
@@ -132,7 +112,7 @@
         "</div>";
     } else {
       postRoot.innerHTML =
-        '<article class="post-wrap reveal visible">' +
+        '<article class="post-wrap">' +
           '<a class="back-link" href="' + escapeHtml(root + "blog/") + '">← All posts</a>' +
           '<header class="post-head">' +
             '<div class="tags">' + (post.tags || []).map((t) =>
