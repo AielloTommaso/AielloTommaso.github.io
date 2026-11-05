@@ -1,0 +1,18 @@
+/* Read-only portfolio skin for the pinned, otherwise upstream PDF.js viewer. */
+:root {
+  --body-bg-color: #111116;
+  --toolbar-bg-color: #191920;
+  --main-color: #f5f5f7;
+  --field-bg-color: #252530;
+  --button-hover-color: rgba(125, 162, 255, 0.2);
+  --toggled-btn-bg-color: rgba(125, 162, 255, 0.28);
+}
+#toolbarContainer { border-bottom: 1px solid rgba(255,255,255,0.14); }
+#viewerContainer { background: #111116; }
+.pdfViewer .page { border: 0; margin: 16px auto; box-shadow: 0 6px 30px #0005; }
+#secondaryOpenFile, #openFile, #editorModeButtons, #editorModeSeparator,
+#viewBookmark, #secondaryViewBookmark { display: none !important; }
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid #9cb8ff;
+  outline-offset: 2px;
+}

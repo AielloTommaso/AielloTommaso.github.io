@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tommaso Aiello — AI Researcher</title>
   <meta name="description" content="Tommaso Aiello — MSc Artificial Intelligence at Bocconi University. Research in statistical physics and diffusion processes, generative models, and applied mathematics." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="preload" href="assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css?v=4" />
 </head>
 <body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,14 +29,23 @@
     </div>
   </header>
 
-  <div class="backdrop" aria-hidden="true"><img src="assets/background.jpg" srcset="assets/background.jpg 940w, assets/background-hd.jpg 1800w" sizes="100vw" fetchpriority="high" decoding="async" alt=""></div>
+  <div class="backdrop" aria-hidden="true">
+    <picture>
+      <source type="image/avif" srcset="assets/background-640.avif 640w, assets/background-768.avif 768w, assets/background-940.avif 940w, assets/background-1440.avif 1440w, assets/background-1800.avif 1800w" sizes="100vw">
+      <source type="image/webp" srcset="assets/background-640.webp 640w, assets/background-940.webp 940w, assets/background-1800.webp 1800w" sizes="100vw">
+      <img src="assets/background.jpg" srcset="assets/background.jpg 940w, assets/background-hd.jpg 1800w" sizes="100vw" width="940" height="3133" fetchpriority="low" decoding="async" alt="">
+    </picture>
+  </div>
 
   <main id="main">
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="top">
       <div class="hero-inner">
         <figure class="hero-photo">
-          <img src="assets/tommaso-aiello.jpg" alt="Portrait of Tommaso Aiello" width="320" height="400" />
+          <picture>
+            <source type="image/webp" srcset="assets/tommaso-aiello-320.webp 320w, assets/tommaso-aiello-640.webp 640w" sizes="(max-width: 860px) 220px, 300px">
+            <img src="assets/tommaso-aiello.jpg" alt="Portrait of Tommaso Aiello" width="320" height="400" decoding="async" fetchpriority="high">
+          </picture>
         </figure>
         <div class="hero-text">
           <p class="hero-institution mono">Bocconi University · MSc Artificial Intelligence</p>
@@ -53,100 +62,152 @@
             <a href="tel:+393475182845" class="mono">+39 347 518 2845</a>
             <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener" class="mono">GitHub ↗</a>
             <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener" class="mono">LinkedIn ↗</a>
-            <a href="assets/Tommaso_Aiello_Resume.pdf" class="btn btn-primary" download>Download CV</a>
+            <a href="assets/CV_Tommaso_Aiello.pdf" class="btn btn-primary" download>Download CV</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== WORK ===================== -->
-    <section class="section" id="work">
+    <section class="section" id="work" aria-labelledby="work-title">
       <div class="container">
         <p class="section-label mono">§ 01</p>
-        <h2 class="section-title">Selected Work</h2>
-        <div class="bento">
-          <article class="proj proj-feature">
-            <p class="proj-kind mono">Featured</p>
-            <h3 class="proj-title">Curie–Weiss &amp; Diffusion</h3>
-            <p class="proj-abstract">
-              A mixture-of-Boltzmann model coupled to an Ornstein–Uhlenbeck
-              diffusion channel. Analytical study of when the posterior over
-              latent patterns concentrates on a single winner — exact diffusion
-              likelihoods, RMS selection criteria, and spinodal times from the
-              Hessian spectrum across hierarchical templates.
-            </p>
-            <div class="proj-meta">
-              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Research</span></div>
-              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Statistical physics</span></div>
-              <div class="hud"><span class="hud-label">SUPERVISOR</span><span class="hud-value">Marc Mézard</span></div>
-              <div class="hud"><span class="hud-label">YEAR</span><span class="hud-value">2026 — Present</span></div>
-              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">Active</span></div>
-              <div class="hud"><span class="hud-label">STACK</span><span class="hud-value">diffusion · statistical mechanics</span></div>
-            </div>
-            <div class="proj-links">
-              <a href="assets/research-curie-weiss-diffusion.pdf" class="btn btn-primary" download>Read the paper <span class="lk-arrow">↗</span></a>
-            </div>
-            <a class="proj-preview" href="assets/research-curie-weiss-diffusion.pdf" target="_blank" rel="noopener" aria-label="Open the research paper — first page preview">
-              <img src="assets/research-preview.jpg" alt="" loading="lazy" />
-              <span class="preview-cap mono">Research paper · 45 pp — open PDF ↗</span>
+        <h2 class="section-title" id="work-title">Selected Work</h2>
+        <p class="work-intro">From the physics of diffusion to systems that make sense of language, images, and data.</p>
+        <div class="research-grid" aria-label="Research papers">
+          <article class="proj paper-card">
+            <a class="project-media paper-cover" href="assets/research-curie-weiss-diffusion.pdf" data-paper="curie-weiss-i" aria-label="Read Curie–Weiss &amp; Diffusion — Part I — 45 pages">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/part-one-240.webp 240w, assets/projects/part-one-480.webp 480w, assets/projects/part-one-849.webp 849w" sizes="(max-width: 639px) 115px, 180px">
+                  <img src="assets/projects/part-one.jpg" alt="Title page of Curie–Weiss &amp; Diffusion — Part I" width="849" height="1200" loading="lazy" decoding="async">
+                </picture>
+              <span class="paper-stamp mono">45 pages <span aria-hidden="true">↗</span></span>
             </a>
-          </article>
-
-          <article class="proj proj-side">
-            <p class="proj-kind mono">Project</p>
-            <h3 class="proj-title">Pydeia</h3>
-            <p class="proj-abstract">
-              Conversational assistant that matches high-school students with
-              bachelor's programs, driven by semantic recommendations and the
-              hosted agentic framework. Built in 24 hours with five teammates.
-            </p>
-            <div class="proj-meta">
-              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Hackathon</span></div>
-              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Agentic AI</span></div>
-              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">1st of 24 · InnovAIte · Nov 2025</span></div>
-              <div class="hud"><span class="hud-label">STACK</span><span class="hud-value">Flask · React</span></div>
-            </div>
-            <div class="proj-links">
-              <a href="https://github.com/AielloTommaso/Pydeia" target="_blank" rel="noopener" class="read-link">Repo <span class="lk-arrow">↗</span></a>
+            <div class="proj-content">
+              <p class="proj-kind mono">01 / Research notes</p>
+              <h3 class="proj-title">Curie–Weiss &amp; Diffusion — Part I</h3>
+              <p class="proj-abstract">When does a noisy system recover its hidden structure? Analytical results and Monte Carlo experiments connect diffusion, phase selection, and hierarchical patterns in a mixture-of-Boltzmann model.</p>
+              <div class="proj-links">
+                <a href="assets/research-curie-weiss-diffusion.pdf" class="btn btn-primary" data-paper="curie-weiss-i">Read paper <span aria-hidden="true">↗</span></a>
+                <a href="assets/research-curie-weiss-diffusion.pdf" class="read-link" download>Download <span aria-hidden="true">↓</span></a>
+              </div>
             </div>
           </article>
-
-          <article class="proj proj-side">
-            <p class="proj-kind mono">Research</p>
-            <h3 class="proj-title">Diffusion Models on Hierarchical Data</h3>
-            <p class="proj-abstract">
-              A modular framework generating hierarchical sequences, with
-              Transformer denoisers probing how data structure and noise
-              schedules shape reconstruction quality — and the phase
-              transitions in learning capacity they reveal.
-            </p>
-            <div class="proj-meta">
-              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Thesis</span></div>
-              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Diffusion · hierarchical data</span></div>
-              <div class="hud"><span class="hud-label">YEAR</span><span class="hud-value">Oct '24 – Jul '25</span></div>
-              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">Completed</span></div>
-            </div>
-            <div class="proj-links">
-              <a href="https://github.com/AielloTommaso/DIffusion_Processes_for_Generative_Hierchical_Models" target="_blank" rel="noopener" class="read-link">Repo <span class="lk-arrow">↗</span></a>
+          <article class="proj paper-card">
+            <a class="project-media paper-cover" href="assets/Diffusion_In_Reverse_Potential%20%281%29.pdf" data-paper="curie-weiss-ii" aria-label="Read Part II: Reverse Dynamics &amp; Effective Potentials — 22 pages">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/part-two-240.webp 240w, assets/projects/part-two-480.webp 480w, assets/projects/part-two-849.webp 849w" sizes="(max-width: 639px) 115px, 180px">
+                  <img src="assets/projects/part-two.jpg" alt="Title page of Part II: Reverse Dynamics &amp; Effective Potentials" width="849" height="1200" loading="lazy" decoding="async">
+                </picture>
+              <span class="paper-stamp mono">22 pages <span aria-hidden="true">↗</span></span>
+            </a>
+            <div class="proj-content">
+              <p class="proj-kind mono">02 / Research notes</p>
+              <h3 class="proj-title">Part II: Reverse Dynamics &amp; Effective Potentials</h3>
+              <p class="proj-abstract">Following diffusion in reverse: a study of collective dynamics and effective potentials in Curie–Weiss systems, examining how multiple phases emerge and when a lower-dimensional description captures their behavior.</p>
+              <div class="proj-links">
+                <a href="assets/Diffusion_In_Reverse_Potential%20%281%29.pdf" class="btn btn-primary" data-paper="curie-weiss-ii">Read paper <span aria-hidden="true">↗</span></a>
+                <a href="assets/Diffusion_In_Reverse_Potential%20%281%29.pdf" class="read-link" download>Download <span aria-hidden="true">↓</span></a>
+              </div>
             </div>
           </article>
-
-          <article class="proj proj-wide">
-            <p class="proj-kind mono">Project</p>
-            <h3 class="proj-title">Two-View 3D Reconstruction</h3>
-            <p class="proj-abstract">
-              Full pipeline from camera calibration to triangulation — SIFT
-              feature matching, eight-point estimation, and epipolar geometry —
-              reconstructing scenes from two views.
-            </p>
-            <div class="proj-meta">
-              <div class="hud"><span class="hud-label">TYPE</span><span class="hud-value">Course project</span></div>
-              <div class="hud"><span class="hud-label">FIELD</span><span class="hud-value">Computer vision</span></div>
-              <div class="hud"><span class="hud-label">STATUS</span><span class="hud-value">Complete</span></div>
-              <div class="hud"><span class="hud-label">STACK</span><span class="hud-value">OpenCV · SIFT</span></div>
+        </div>
+        <div class="work-divider"><span class="mono">Projects &amp; experiments</span><span class="mono">06 selected</span></div>
+        <div class="project-grid" aria-label="GitHub projects">
+          <article class="proj project-card">
+            <div class="project-media media-narrativegraph">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/narrativegraph-640.webp 640w, assets/projects/narrativegraph-1200.webp 1200w" sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 900px) 46vw, 620px">
+                  <img src="assets/projects/narrativegraph.jpg" alt="Predicted character affinity network for Jude the Obscure, chapter six" width="2210" height="1530" loading="lazy" decoding="async">
+                </picture>
             </div>
-            <div class="proj-links">
-              <a href="https://github.com/AielloTommaso/Computer-Vision-Project" target="_blank" rel="noopener" class="read-link">Repo <span class="lk-arrow">↗</span></a>
+            <div class="proj-content">
+              <p class="proj-kind mono">NLP · Character networks</p>
+              <h3 class="proj-title">NarrativeGraph</h3>
+              <p class="proj-abstract">Tracing how relationships evolve across a novel. This pipeline builds chapter-level character networks, predicts affinity with domain-adapted Longformer models, and uses SHAP to examine what drives their predictions.</p>
+              <div class="proj-links">
+                <a href="https://github.com/AielloTommaso/NarrativeGraph" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="proj project-card">
+            <div class="project-media media-tp53">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/tp53-604.webp 604w" sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 900px) 46vw, 620px">
+                  <img src="assets/projects/tp53.jpg" alt="Confusion matrix for TP53 mutation classification on TCGA tumor samples" width="604" height="493" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="proj-content">
+              <p class="proj-kind mono">Machine learning · Genomics</p>
+              <h3 class="proj-title">TP53 Mutation Classification</h3>
+              <p class="proj-abstract">Exploring whether gene-expression profiles reveal TP53 mutation status. Classification experiments across cancer cell lines and tumor cohorts compare models, feature selection, and evaluation protocols in high-dimensional biological data.</p>
+              <div class="proj-links">
+                <a href="https://github.com/AielloTommaso/tp53-mutation-classification" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="proj project-card">
+            <div class="project-media media-scene-graph">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/scene-graph-640.webp 640w, assets/projects/scene-graph-1200.webp 1200w" sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 900px) 46vw, 620px">
+                  <img src="assets/projects/scene-graph.jpg" alt="Example scene graph connecting a person, notebook, table, and floor" width="1600" height="1120" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="proj-content">
+              <p class="proj-kind mono">Computer vision · Video understanding</p>
+              <h3 class="proj-title">Anticipatory Scene Graph Generation</h3>
+              <p class="proj-abstract">Modeling relationships between people and objects over time. A PyTorch implementation of anticipatory pre-training on STTran combines spatial and temporal context to study dynamic scene graphs in video.</p>
+              <div class="proj-links">
+                <a href="https://github.com/AielloTommaso/STTran_Anticipatory_Pre-Training_for_Dynamic_Scene_Graph_Generation" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="proj project-card">
+            <div class="project-media media-two-view">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/two-view-640.webp 640w, assets/projects/two-view-1172.webp 1172w" sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 900px) 46vw, 620px">
+                  <img src="assets/projects/two-view.jpg" alt="The two source photographs used for the reconstruction" width="1172" height="326" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="proj-content">
+              <p class="proj-kind mono">Computer vision · Geometry</p>
+              <h3 class="proj-title">Two-View 3D Reconstruction</h3>
+              <p class="proj-abstract">Recovering three-dimensional structure from two photographs. A complete pipeline connects camera calibration, SIFT feature matching, epipolar geometry, and triangulation, turning image correspondences into a reconstruction of the scene.</p>
+              <div class="proj-links">
+                <a href="https://github.com/AielloTommaso/3D_Two_View_Reconstruction" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="proj project-card">
+            <div class="project-media media-diffusion">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/diffusion-640.webp 640w, assets/projects/diffusion-889.webp 889w" sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 900px) 46vw, 620px">
+                  <img src="assets/projects/diffusion.jpg" alt="Reconstruction cross-entropy across diffusion timestep intervals" width="889" height="490" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="proj-content">
+              <p class="proj-kind mono">Bachelor’s thesis · Generative models</p>
+              <h3 class="proj-title">Diffusion Models on Hierarchical Data</h3>
+              <p class="proj-abstract">How does data structure affect what a diffusion model can recover? Experiments with grammar-generated hierarchical sequences and Transformer denoisers examine reconstruction, memorization, and phase transitions under changing noise.</p>
+              <div class="proj-links">
+                <a href="https://github.com/AielloTommaso/DIffusion_Processes_for_Generative_Hierchical_Models" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="proj project-card">
+            <div class="project-media media-pydeia">
+              <picture>
+                  <source type="image/webp" srcset="assets/projects/pydeia-640.webp 640w, assets/projects/pydeia-1200.webp 1200w" sizes="(max-width: 639px) calc(100vw - 64px), (max-width: 900px) 46vw, 620px">
+                  <img src="assets/projects/pydeia.jpg" alt="Pydeia voice conversation interface showing its first question" width="1919" height="905" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="proj-content">
+              <p class="proj-kind mono">Hackathon · Agentic AI</p>
+              <h3 class="proj-title">Pydeia</h3>
+              <p class="proj-abstract">A voice-first assistant for exploring university choices. Built during a 24-hour hackathon, Pydeia combines a conversational interface with semantic recommendations, matching students’ interests and constraints to a demonstration course dataset.</p>
+              <div class="proj-links">
+                <a href="https://github.com/AielloTommaso/Pydeia" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
+              </div>
             </div>
           </article>
         </div>
@@ -300,7 +361,7 @@
           <a href="tel:+393475182845" class="btn btn-ghost mono">+39 347 518 2845</a>
           <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener" class="btn btn-ghost mono">GitHub</a>
           <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener" class="btn btn-ghost mono">LinkedIn</a>
-          <a href="assets/Tommaso_Aiello_Resume.pdf" class="btn btn-ghost mono" download>CV</a>
+          <a href="assets/CV_Tommaso_Aiello.pdf" class="btn btn-ghost mono" download>CV</a>
         </div>
       </div>
     </section>
@@ -311,6 +372,28 @@
     </footer>
   </main>
 
-  <script src="js/main.js"></script>
+  <dialog class="paper-dialog" id="paperDialog" aria-labelledby="paperDialogTitle">
+    <header class="paper-dialog-header">
+      <div><p class="mono reader-label">Research notes</p><h2 id="paperDialogTitle">Paper reader</h2></div>
+      <button type="button" class="reader-close" id="paperClose" aria-label="Close paper reader" autofocus><span aria-hidden="true">×</span></button>
+    </header>
+    <div class="paper-stage" id="paperStage" aria-busy="false">
+      <div class="paper-loading" id="paperLoading" role="status" hidden>
+        <div class="paper-skeleton" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="mono">Opening the paper…</p>
+      </div>
+      <div class="paper-error" id="paperError" role="alert" hidden>
+        <h3>The preview couldn’t load.</h3>
+        <p>You can still open or download the original PDF below.</p>
+        <button type="button" class="btn btn-ghost" id="paperRetry">Try again</button>
+      </div>
+      <div class="paper-frame-host" id="paperFrameHost"></div>
+    </div>
+    <footer class="paper-dialog-footer">
+      <span class="mono">Read at your own pace.</span>
+      <a id="paperOriginal" target="_blank" rel="noopener" class="read-link">Open original PDF ↗</a>
+    </footer>
+  </dialog>
+  <script src="js/main.js?v=4" defer></script>
 </body>
 </html>

@@ -58,9 +58,7 @@
   /* ---------- Current page detection ---------- */
 
   const root = (function () {
-    const src = document.currentScript ? document.currentScript.src : window.location.href;
-    const m = src.match(/^(.*\/)js\/main\.js$/);
-    return m ? m[1] : window.location.pathname.replace(/\/[^/]*$/, "/");
+    return new URL("../", document.currentScript.src).href;
   })();
 
   /* ---------- Blog listing page ---------- */
@@ -83,7 +81,7 @@
               '<div class="tags">' + tags + "</div>" +
               '<div class="card-meta"><time datetime="' + escapeHtml(post.date) + '">' +
                 formatDate(post.date) + '</time><span class="dot"></span><span>' +
-                escapeHtml(post.readTime || "5 min read") + ' read</span></div>' +
+                escapeHtml(post.readTime || "5 min") + ' read</span></div>' +
               "<h3><a href='" + escapeHtml(root + "blog/post.html") + "?id=" +
                 encodeURIComponent(post.id) + "'>" + escapeHtml(post.title) + "</a></h3>" +
               "<p>" + escapeHtml(post.excerpt || "") + "</p>" +
@@ -132,4 +130,36 @@
 
     document.title = (post ? post.title + " — " : "") + "Tommaso Aiello";
   }
+  /* Reserve image space in HTML; shimmer only while an image is pending. */
+  $$(".project-media img").forEach((img) => {
+    const media = img.closest(".project-media");
+    const finish = () => {
+      media.classList.remove("is-loading");
+      if (!img.naturalWidth && !media.querySelector(".media-error")) {
+        const note = document.createElement("span");
+        note.className = "media-error mono";
+        note.textContent = "Preview unavailable";
+        media.append(note);
+      }
+    };
+    img.addEventListener("load", finish, { once: true });
+    img.addEventListener("error", finish, { once: true });
+    if (img.complete) finish();
+    else media.classList.add("is-loading");
+  });
+
+  /* The reader and PDF.js stay off the initial loading path. */
+  let readerModule;
+  $$("[data-paper]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
+          typeof HTMLDialogElement === "undefined" || !HTMLDialogElement.prototype.showModal) return;
+      event.preventDefault();
+      readerModule ||= import(new URL("js/paper-reader.js?v=4", root).href);
+      readerModule.then((reader) => reader.openPaper(link.dataset.paper, link)).catch(() => {
+        readerModule = null;
+        window.location.assign(link.href);
+      });
+    });
+  });
 })();
