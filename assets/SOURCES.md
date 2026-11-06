@@ -1,17 +1,18 @@
 # Local asset sources
 
-All project images are authentic project material, downloaded from the owner's
-repositories on 2026-11-05. No notebooks or experiments were executed. Scientific
-plots retain their original colors, axes, and labels; resizing preserves aspect ratio.
-WebP variants and JPEG fallbacks are committed so the website never fetches GitHub
-assets at runtime.
+The six project illustrations and screenshots below were selected and supplied
+by the site owner on 2026-11-06, in reading order. They replace the previous
+repository-derived previews. No notebooks or experiments were executed. Resizing
+preserves each complete image, its aspect ratio, colors, and labels. WebP variants
+and JPEG fallbacks are committed so the website never fetches remote images at
+runtime. The `v2` filenames prevent stale cached previews.
 
-- `projects/narrativegraph-*`: [chapter 6 predicted network](https://github.com/AielloTommaso/NarrativeGraph/blob/main/results_and_plots/Sample_Improvement/MSE_post_train/two_chapters_change/graph_pred_chapter_6.png).
-- `projects/tp53-*`: first PNG output of cell 23 (zero-based), [TCGA binary notebook](https://github.com/AielloTommaso/tp53-mutation-classification/blob/main/notebooks/tcga_binary_classification.ipynb). TCGA confusion matrix, accuracy 0.7937.
-- `projects/scene-graph-*`: [sample scene graph](https://github.com/AielloTommaso/STTran_Anticipatory_Pre-Training_for_Dynamic_Scene_Graph_Generation/blob/main/results/qualitative/Changed_Graphs/0A8CF.mp4/000083.png). Illustrates the repository's scene-graph workflow; it is not presented as an APT benchmark result.
-- `projects/two-view-*`: [Img_1.jpeg](https://github.com/AielloTommaso/3D_Two_View_Reconstruction/blob/main/Photos2/Img_1.jpeg) and [Img2.jpeg](https://github.com/AielloTommaso/3D_Two_View_Reconstruction/blob/main/Photos2/Img2.jpeg), placed side by side without cropping.
-- `projects/diffusion-*`: first PNG output of cell 48 (zero-based), [binary diffusion notebook](https://github.com/AielloTommaso/DIffusion_Processes_for_Generative_Hierchical_Models/blob/main/Notebooks/Binary_diffusion.ipynb). Reconstruction cross-entropy by timestep.
-- `projects/pydeia-*`: [first-question screenshot](https://github.com/AielloTommaso/Pydeia/blob/main/docs/screenshots/first-question.png).
+- `projects/narrativegraph-v2*`: supplied colored community-network illustration.
+- `projects/tp53-v2*`: supplied eukaryotic transcription-initiation diagram.
+- `projects/scene-graph-v2*`: supplied screenshot pairing an annotated video frame with a person–object scene graph.
+- `projects/two-view-v2*`: supplied screenshot comparing two point-cloud reconstructions with the original SDA Bocconi photographs.
+- `projects/diffusion-v2*`: supplied four-panel diffusion illustration with animal images and timestep labels; an illustrative preview, not a plot of the repository's experimental results.
+- `projects/pydeia-v2*`: supplied Pydeia screenshot showing the conversation and recommendation-preparation screen.
 - `projects/part-one-*` and `projects/part-two-*`: first pages rendered from the two research PDFs provided in this repository.
 - `background-*` and `tommaso-aiello-*.webp`: compressed variants of the existing photographs. The background also has AVIF variants; the original JPEG files remain as fallbacks.
 
