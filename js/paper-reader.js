@@ -3,11 +3,18 @@ const root = new URL("../", import.meta.url);
 const papers = {
   "curie-weiss-i": {
     title: "Curie–Weiss & Diffusion — Part I",
+    label: "Research notes",
     file: "assets/research-curie-weiss-diffusion.pdf",
   },
   "curie-weiss-ii": {
     title: "Part II: Reverse Dynamics & Effective Potentials",
-    file: "assets/Diffusion_In_Reverse_Potential (1).pdf",
+    label: "Research notes",
+    file: "assets/Diffusion_In_Reverse_Potential.pdf",
+  },
+  "hierarchical-diffusion-thesis": {
+    title: "Generative Diffusion for Hierarchical Models of Language",
+    label: "Bachelor’s thesis · 39 pages",
+    file: "assets/LFF3208266.pdf",
   },
 };
 
@@ -85,6 +92,7 @@ document.addEventListener("webviewerloaded", (event) => {
 export function openPaper(id, trigger) {
   if (!Object.hasOwn(papers, id)) return;
   returnFocus = trigger;
+  document.getElementById("paperDialogKind").textContent = papers[id].label;
   document.getElementById("paperDialogTitle").textContent = papers[id].title;
   document.getElementById("paperOriginal").href = new URL(papers[id].file, root).href;
   if (!dialog.open) {

@@ -19,7 +19,9 @@ PDF.js needs a web server to load its modules and worker.
 - Keep project images in `assets/projects/`, including width-specific WebP
   variants and a JPEG fallback. Update the source sets, alt text, and intrinsic
   dimensions together. Scientific figures use `object-fit: contain`.
-- The paper reader uses the two-document allowlist in `js/paper-reader.js`.
+- The diffusion project includes a “Read thesis” button for `assets/LFF3208266.pdf`.
+- The paper reader uses a three-document allowlist in `js/paper-reader.js`:
+  the two research papers and the bachelor's thesis.
   Update it and the ordinary HTML PDF links together when replacing a paper.
 - The active viewer is retained while closed, preserving its page, zoom, and
   search and avoiding another download. Switching papers replaces that viewer.
@@ -29,10 +31,10 @@ PDF.js needs a web server to load its modules and worker.
 ## Checks before publishing
 
 Verify the home page at 360, 390, 768, 1024, and 1440 px; all eight images; both
-PDF previews; page navigation, zoom, text search, download, close/Escape and focus
-return; the CV links; navigation and blog links. Test a failed PDF request and
+PDF previews and the thesis button; page navigation, zoom, text search, download,
+close/Escape and focus return; the CV links; navigation and blog links. Test a failed PDF request and
 retry, reduced motion, and the ordinary document links without JavaScript.
-The initial home page must not request PDF.js, its worker, or either paper.
+The initial home page must not request PDF.js, its worker, or any PDF document.
 
 Run a Lighthouse mobile comparison with a local server and Chrome:
 

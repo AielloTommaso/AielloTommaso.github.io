@@ -155,7 +155,7 @@
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
           typeof HTMLDialogElement === "undefined" || !HTMLDialogElement.prototype.showModal) return;
       event.preventDefault();
-      readerModule ||= import(new URL("js/paper-reader.js?v=4", root).href);
+      readerModule ||= import(new URL("js/paper-reader.js?v=5", root).href);
       readerModule.then((reader) => reader.openPaper(link.dataset.paper, link)).catch(() => {
         readerModule = null;
         window.location.assign(link.href);

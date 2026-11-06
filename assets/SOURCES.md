@@ -13,7 +13,9 @@ runtime. The `v2` filenames prevent stale cached previews.
 - `projects/two-view-v2*`: supplied screenshot comparing two point-cloud reconstructions with the original SDA Bocconi photographs.
 - `projects/diffusion-v2*`: supplied four-panel diffusion illustration with animal images and timestep labels; an illustrative preview, not a plot of the repository's experimental results.
 - `projects/pydeia-v2*`: supplied Pydeia screenshot showing the conversation and recommendation-preparation screen.
-- `projects/part-one-*` and `projects/part-two-*`: first pages rendered from the two research PDFs provided in this repository.
+- `projects/part-one-*`: first page rendered from `research-curie-weiss-diffusion.pdf`.
+- `projects/part-two-v2*`: first page rendered from the updated, 39-page `Diffusion_In_Reverse_Potential.pdf`, supplied by the owner on 2026-11-06.
+- `LFF3208266.pdf`: the owner's 39-page bachelor's thesis, supplied on 2026-11-06 and linked from the hierarchical diffusion project. The original PDF is served without modification.
 - `background-*` and `tommaso-aiello-*.webp`: compressed variants of the existing photographs. The background also has AVIF variants; the original JPEG files remain as fallbacks.
 
 ## Fonts
