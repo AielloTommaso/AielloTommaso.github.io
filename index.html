@@ -8,7 +8,7 @@
   <meta name="description" content="Tommaso Aiello — MSc Artificial Intelligence at Bocconi University. Research in statistical physics and diffusion processes, generative models, and applied mathematics." />
   <link rel="preload" href="assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=5" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
 </head>
 <body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -18,7 +18,7 @@
       <a href="#top" class="logo">Tommaso Aiello <span class="logo-sub">· AI Researcher</span></a>
       <nav class="nav-links" id="navLinks" aria-label="Primary">
         <a href="#work">Work</a>
-        <a href="#path">Path</a>
+        <a href="#path">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
         <a href="blog/" class="nav-blog">Blog</a>
@@ -43,26 +43,30 @@
       <div class="hero-inner">
         <figure class="hero-photo">
           <picture>
-            <source type="image/webp" srcset="assets/tommaso-aiello-320.webp 320w, assets/tommaso-aiello-640.webp 640w" sizes="(max-width: 860px) 220px, 300px">
+            <source type="image/webp" srcset="assets/tommaso-aiello-320.webp 320w, assets/tommaso-aiello-640.webp 640w" sizes="(max-width: 600px) 104px, (max-width: 860px) 180px, 280px">
             <img src="assets/tommaso-aiello.jpg" alt="Portrait of Tommaso Aiello" width="320" height="400" decoding="async" fetchpriority="high">
           </picture>
         </figure>
-        <div class="hero-text">
+        <div class="hero-heading">
           <p class="hero-institution mono">Bocconi University · MSc Artificial Intelligence</p>
           <h1 class="hero-title">Tommaso Aiello</h1>
-          <p class="hero-role mono">AI Researcher <em>·</em> Applied Mathematician</p>
-          <p class="hero-bio">
-            I work at the boundary of statistical physics and machine learning,
-            studying diffusion processes and the structure of generative models.
-            Currently a Master's student at Bocconi, with semesters in Hong Kong
-            and Maryland ahead.
-          </p>
-          <div class="hero-contacts">
+          <p class="hero-role mono"><span>AI Researcher</span> <span>Applied Mathematician</span></p>
+        </div>
+        <p class="hero-bio">
+          I am an MSc student in Artificial Intelligence at Bocconi University,
+          with a background in applied mathematics. My research focuses on
+          statistical physics, diffusion processes, and the structure and
+          learning dynamics of generative models.
+        </p>
+        <div class="hero-contacts">
+          <div class="hero-contact-details">
             <a href="mailto:tommasoaiello0804@gmail.com" class="mono">tommasoaiello0804@gmail.com</a>
             <a href="tel:+393475182845" class="mono">+39 347 518 2845</a>
+          </div>
+          <div class="hero-actions">
+            <a href="assets/CV_Tommaso_Aiello.pdf" class="btn btn-primary" download>Download CV</a>
             <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener" class="mono">GitHub ↗</a>
             <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener" class="mono">LinkedIn ↗</a>
-            <a href="assets/CV_Tommaso_Aiello.pdf" class="btn btn-primary" download>Download CV</a>
           </div>
         </div>
       </div>
@@ -73,7 +77,7 @@
       <div class="container">
         <p class="section-label mono">§ 01</p>
         <h2 class="section-title" id="work-title">Selected Work</h2>
-        <p class="work-intro">From the physics of diffusion to systems that make sense of language, images, and data.</p>
+        <p class="work-intro">Research and applied projects in statistical physics, generative modeling, natural language processing, and computer vision.</p>
         <div class="research-grid" aria-label="Research papers">
           <article class="proj paper-card">
             <a class="project-media paper-cover" href="assets/research-curie-weiss-diffusion.pdf" data-paper="curie-weiss-i" aria-label="Read Curie–Weiss &amp; Diffusion — Part I — 45 pages">
@@ -86,7 +90,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">01 / Research notes</p>
               <h3 class="proj-title">Curie–Weiss &amp; Diffusion — Part I</h3>
-              <p class="proj-abstract">When does a noisy system recover its hidden structure? Analytical results and Monte Carlo experiments connect diffusion, phase selection, and hierarchical patterns in a mixture-of-Boltzmann model.</p>
+              <p class="proj-abstract">Analytical and computational study of diffusion, phase selection, and hierarchical structure in a mixture-of-Boltzmann model. Analytical results and Monte Carlo experiments characterize the conditions under which noisy dynamics recover underlying structure.</p>
               <div class="proj-links">
                 <a href="assets/research-curie-weiss-diffusion.pdf" class="btn btn-primary" data-paper="curie-weiss-i">Read paper <span aria-hidden="true">↗</span></a>
                 <a href="assets/research-curie-weiss-diffusion.pdf" class="read-link" download>Download <span aria-hidden="true">↓</span></a>
@@ -104,7 +108,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">02 / Research notes</p>
               <h3 class="proj-title">Part II: Reverse Dynamics &amp; Effective Potentials</h3>
-              <p class="proj-abstract">Following diffusion in reverse: a study of collective dynamics and effective potentials in Curie–Weiss systems, examining how multiple phases emerge and when a lower-dimensional description captures their behavior.</p>
+              <p class="proj-abstract">Analysis of reverse diffusion in Curie–Weiss systems, focusing on collective dynamics, effective potentials, and phase coexistence. The work examines conditions under which reduced descriptions capture the behavior of the full system.</p>
               <div class="proj-links">
                 <a href="assets/Diffusion_In_Reverse_Potential.pdf" class="btn btn-primary" data-paper="curie-weiss-ii">Read paper <span aria-hidden="true">↗</span></a>
                 <a href="assets/Diffusion_In_Reverse_Potential.pdf" class="read-link" download>Download <span aria-hidden="true">↓</span></a>
@@ -124,7 +128,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">NLP · Character networks</p>
               <h3 class="proj-title">NarrativeGraph</h3>
-              <p class="proj-abstract">Tracing how relationships evolve across a novel. This pipeline builds chapter-level character networks, predicts affinity with domain-adapted Longformer models, and uses SHAP to examine what drives their predictions.</p>
+              <p class="proj-abstract">A pipeline for modeling character relationships across novel chapters. Domain-adapted Longformer models predict affinity within evolving character networks, while SHAP analysis examines the features that contribute to those predictions.</p>
               <div class="proj-links">
                 <a href="https://github.com/AielloTommaso/NarrativeGraph" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
               </div>
@@ -140,7 +144,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">Machine learning · Genomics</p>
               <h3 class="proj-title">TP53 Mutation Classification</h3>
-              <p class="proj-abstract">Exploring whether gene-expression profiles reveal TP53 mutation status. Classification experiments across cancer cell lines and tumor cohorts compare models, feature selection, and evaluation protocols in high-dimensional biological data.</p>
+              <p class="proj-abstract">Machine learning experiments investigating whether gene-expression profiles can predict TP53 mutation status. Models, feature-selection methods, and evaluation protocols are compared across cancer cell lines and tumor cohorts.</p>
               <div class="proj-links">
                 <a href="https://github.com/AielloTommaso/tp53-mutation-classification" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
               </div>
@@ -156,7 +160,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">Computer vision · Video understanding</p>
               <h3 class="proj-title">Anticipatory Scene Graph Generation</h3>
-              <p class="proj-abstract">Modeling relationships between people and objects over time. A PyTorch implementation of anticipatory pre-training on STTran combines spatial and temporal context to study dynamic scene graphs in video.</p>
+              <p class="proj-abstract">PyTorch implementation of anticipatory pre-training for STTran, a model for dynamic scene graph generation. The project combines spatial and temporal context to represent relationships between people and objects in video.</p>
               <div class="proj-links">
                 <a href="https://github.com/AielloTommaso/STTran_Anticipatory_Pre-Training_for_Dynamic_Scene_Graph_Generation" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
               </div>
@@ -172,7 +176,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">Computer vision · Geometry</p>
               <h3 class="proj-title">Two-View 3D Reconstruction</h3>
-              <p class="proj-abstract">Recovering three-dimensional structure from two photographs. A complete pipeline connects camera calibration, SIFT feature matching, epipolar geometry, and triangulation, turning image correspondences into a reconstruction of the scene.</p>
+              <p class="proj-abstract">A two-view reconstruction pipeline that estimates three-dimensional scene structure from image correspondences. The implementation integrates camera calibration, SIFT feature matching, epipolar geometry, and triangulation.</p>
               <div class="proj-links">
                 <a href="https://github.com/AielloTommaso/3D_Two_View_Reconstruction" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
               </div>
@@ -188,7 +192,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">Bachelor’s thesis · Generative models</p>
               <h3 class="proj-title">Diffusion Models on Hierarchical Data</h3>
-              <p class="proj-abstract">How does data structure affect what a diffusion model can recover? Experiments with grammar-generated hierarchical sequences and Transformer denoisers examine reconstruction, memorization, and phase transitions under changing noise.</p>
+              <p class="proj-abstract">Bachelor’s thesis on the relationship between hierarchical data structure and diffusion-model performance. Experiments with grammar-generated sequences and Transformer denoisers examine reconstruction, memorization, and phase transitions as the noise level varies.</p>
               <div class="proj-links">
                 <a href="assets/LFF3208266.pdf" class="btn btn-primary" data-paper="hierarchical-diffusion-thesis">Read thesis <span aria-hidden="true">↗</span></a>
                 <a href="https://github.com/AielloTommaso/DIffusion_Processes_for_Generative_Hierchical_Models" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
@@ -205,7 +209,7 @@
             <div class="proj-content">
               <p class="proj-kind mono">Hackathon · Agentic AI</p>
               <h3 class="proj-title">Pydeia</h3>
-              <p class="proj-abstract">A voice-first assistant for exploring university choices. Built during a 24-hour hackathon, Pydeia combines a conversational interface with semantic recommendations, matching students’ interests and constraints to a demonstration course dataset.</p>
+              <p class="proj-abstract">A conversational assistant for university course selection, developed during a 24-hour hackathon. The prototype combines a voice interface with semantic recommendations based on students’ interests and constraints, using a demonstration course dataset.</p>
               <div class="proj-links">
                 <a href="https://github.com/AielloTommaso/Pydeia" target="_blank" rel="noopener noreferrer" class="read-link">View on GitHub <span aria-hidden="true">↗</span></a>
               </div>
@@ -219,13 +223,13 @@
     <section class="section" id="path">
       <div class="container">
         <p class="section-label mono">§ 02</p>
-        <h2 class="section-title">The Path</h2>
+        <h2 class="section-title">Education &amp; Experience</h2>
         <div class="path-rows">
           <div class="path-group">
             <div class="path-row">
               <div class="path-body">
                 <h3>BSc in Applied Mathematics for Artificial Intelligence</h3>
-                <p class="path-desc">The foundation: mathematics, probability, statistics, and the first serious lines of code.</p>
+                <p class="path-desc">Academic training in applied mathematics, probability, statistics, and computer science, with a focus on artificial intelligence.</p>
               </div>
               <div class="path-meta-right mono">
                 <p class="path-date">2022 — 2025</p>
@@ -257,7 +261,7 @@
               <div class="path-sub">
                 <div class="path-sub-body">
                   <h4>Exchange — Applied &amp; Computational Mathematics</h4>
-                  <p class="path-sub-note">City University of Hong Kong · stochastic processes and beyond</p>
+                  <p class="path-sub-note">City University of Hong Kong · coursework in applied mathematics and stochastic processes</p>
                 </div>
                 <p class="path-sub-when mono">Jan 2025 — Jun 2025</p>
               </div>
@@ -268,7 +272,7 @@
             <div class="path-row">
               <div class="path-body">
                 <h3>MSc in Artificial Intelligence</h3>
-                <p class="path-desc">Associazione San Paolo merit scholar — one of 20 recipients of a full-tuition waiver.</p>
+                <p class="path-desc">Recipient of the Associazione San Paolo merit scholarship, one of 20 full-tuition awards.</p>
               </div>
               <div class="path-meta-right mono">
                 <p class="path-date">2025 — 2027</p>
@@ -278,15 +282,15 @@
             <div class="path-subs">
               <div class="path-sub">
                 <div class="path-sub-body">
-                  <h4>Hackathon</h4>
-                  <p class="path-sub-note">Won it with Pydeia · 1st of 24 teams · InnovAIte — Flask + React voice-first demo in 24h</p>
+                  <h4>InnovAIte Hackathon — Pydeia</h4>
+                  <p class="path-sub-note">First place among 24 teams · developed a Flask and React prototype with a voice interface in 24 hours</p>
                 </div>
                 <p class="path-sub-when mono">Nov 2025</p>
               </div>
               <div class="path-sub">
                 <div class="path-sub-body">
                   <h4>Research — Statistical Physics &amp; Diffusion Processes</h4>
-                  <p class="path-sub-note">Sup. Marc Mézard · closed-form diffusion likelihoods &amp; Hessian-based spinodal times · 130k-sample Monte Carlo validation</p>
+                  <p class="path-sub-note">Supervised by Marc Mézard · closed-form diffusion likelihoods &amp; Hessian-based spinodal times · Monte Carlo validation with 130,000 samples</p>
                 </div>
                 <p class="path-sub-when mono">Jan 2026 — Present</p>
               </div>
@@ -334,16 +338,15 @@
             <ul>
               <li>Python · C · C++ · R · JavaScript · SQL · MATLAB</li>
               <li>Git workflows</li>
-              <li>Lightweight full-stack — Flask · React</li>
+              <li>Full-stack development — Flask · React</li>
               <li>Data tooling — Power BI</li>
             </ul>
           </div>
         </div>
         <div class="skill-notes">
           <p><strong>Languages</strong> — Italian · native, English · C1 (IELTS Academic 7.5), Spanish · conversational</p>
-          <p>· full-tuition scholarship, Bocconi University</p>
-          <p>· nine-month fully funded exchange in Ottawa</p>
-          <p>· competitive swimming · bass guitar</p>
+          <p><strong>Scholarships</strong> — Full-tuition scholarship at Bocconi University; fully funded nine-month exchange in Ottawa</p>
+          <p><strong>Interests</strong> — Competitive swimming and bass guitar</p>
         </div>
       </div>
     </section>
@@ -354,8 +357,9 @@
         <p class="section-label mono">§ 04</p>
         <h2 class="section-title">Contact</h2>
         <p class="contact-sub">
-          Open to research collaboration, thesis positions, and good
-          conversations about diffusion models over an espresso.
+          I welcome inquiries regarding research collaborations, thesis opportunities,
+          and applied machine learning projects, particularly in generative modeling,
+          diffusion processes, and statistical physics.
         </p>
         <a href="mailto:tommasoaiello0804@gmail.com" class="contact-email">tommasoaiello0804@gmail.com</a>
         <div class="contact-row">
