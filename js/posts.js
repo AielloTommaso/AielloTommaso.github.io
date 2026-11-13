@@ -5,7 +5,7 @@
 const blogPosts = [
   {
     id: "innovate-hackathon-pydeia",
-    title: "How We Won InnovAIte's Agentic-AI Track with Pydeia",
+    title: "How we won InnovAIte's Agentic-AI track with Pydeia",
     date: "2026-09-14",
     readTime: "5 min",
     tags: ["Hackathon", "Agentic AI", "Projects"],
@@ -48,13 +48,13 @@ const blogPosts = [
   },
   {
     id: "diffusion-phase-transitions",
-    title: "Phase Transitions in Diffusion Models on Hierarchical Data",
+    title: "Phase transitions in diffusion models on hierarchical data",
     date: "2026-09-07",
     readTime: "7 min",
     tags: ["Research", "Diffusion", "Thesis"],
     excerpt: "A summary of my bachelor's thesis: how does the structure of data change what a Transformer-based denoiser can reconstruct? Deterministic noise, emergent boundaries.",
     content: `
-      <p>Standard wisdom says diffusion models are phenomenally good at learning distributions. But <em>which</em> distributions — and how does the <em>structure</em> inside the data change what the model can recover?</p>
+      <p>Standard wisdom says diffusion models are phenomenally good at learning distributions. But which distributions — and how does the structure inside the data change what the model can recover?</p>
 
       <p>That question — the relation between the structure of data and the learning capacity of diffusion models — was the heart of my bachelor's thesis at Bocconi.</p>
 
@@ -71,11 +71,11 @@ const blogPosts = [
 
       <h2>What I found</h2>
 
-      <p>Reconstruction quality does not degrade smoothly as structure gets harder between the two means. Instead, across both sparsity and complexity, we observe <strong>sharp transitions</strong> — the analogue of <em>phase transitions</em> in statistical physics.</p>
+      <p>Reconstruction quality does not degrade smoothly as structure gets harder between the two means. Instead, across both sparsity and complexity, we observe <strong>sharp transitions</strong> — the analogue of phase transitions in statistical physics.</p>
 
       <p>Below a threshold of complexity, the denoiser recovers almost perfectly. Cross the threshold, and reconstruction quality falls off a cliff — the model keeps its local accuracy but loses the ability to lock onto the global, hierarchical pattern.</p>
 
-      <p>The effect of sparsity is subtler: restricting the reachable space can actually <em>help</em> the model's learning capacity first, then flip as data becomes too concentrated to carry its own signal.</p>
+      <p>The effect of sparsity is subtler: restricting the reachable space can actually help the model's learning capacity first, then flip as data becomes too concentrated to carry its own signal.</p>
 
       <blockquote>There's a line in reconstruction quality that the model crosses sharply — like magnetization snapping to zero at a critical temperature.</blockquote>
 

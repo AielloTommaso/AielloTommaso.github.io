@@ -40,17 +40,17 @@
   --accent-on: #0b1226;
 
   /* Type scale */
-  --fs-xs: 0.8125rem;   /* 13 - mono meta, labels */
-  --fs-sm: 0.9375rem;   /* 15 - secondary text, nav, buttons */
-  --fs-base: 1.0625rem; /* 17 - body */
-  --fs-md: 1.25rem;     /* 20 - hero bio, row headings */
-  --fs-lg: 1.5rem;      /* 24 - card titles */
-  --fs-xl: clamp(1.75rem, 1.2rem + 1.6vw, 2.25rem);       /* section titles */
-  --fs-display: clamp(2.25rem, 1.2rem + 4.2vw, 4.5rem);   /* name */
+  --fs-xs: 0.875rem;    /* 14 - mono meta, labels, buttons */
+  --fs-sm: 1rem;        /* 16 - abstracts, nav, notes */
+  --fs-base: 1.125rem;  /* 18 - body */
+  --fs-md: 1.375rem;    /* 22 - hero bio, row headings */
+  --fs-lg: 1.75rem;     /* 28 - card titles */
+  --fs-xl: clamp(2rem, 1.4rem + 2vw, 2.75rem);        /* 32-44 - section titles */
+  --fs-display: clamp(2.75rem, 1.4rem + 5vw, 5rem);   /* 44-80 - name */
 
   /* Spacing (4px grid) */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px; --s-6: 24px;
-  --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-24: 96px;
+  --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-24: 96px; --s-32: 128px;
 
   /* Radius: card 16, inner = 16 - 8 padding */
   --r-sm: 6px;
@@ -62,14 +62,15 @@
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.6);
 
-  /* Motion: one curve, three durations */
+  /* Motion: one curve (and its mirror for exits), three durations */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.64, 0, 0.78, 0);
   --t-press: 100ms;
   --t-fast: 140ms;
   --t-menu: 200ms;
   --t-enter: 420ms;
 
-  --max-w: 1080px;
+  --max-w: 1160px;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --nav-h: 64px;
@@ -99,7 +100,7 @@ h1, h2, h3, h4 {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 ul, ol { list-style: none; }
-.mono { font-family: var(--font-mono); }
+.mono { font-family: var(--font-mono); letter-spacing: 0.01em; }
 
 ::selection { background: var(--accent); color: var(--accent-on); }
 
@@ -153,8 +154,9 @@ ul, ol { list-style: none; }
   background: var(--accent); transform: scaleX(0); transform-origin: left;
   transition: transform var(--t-menu) var(--ease);
 }
-.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--ink); }
-.nav-links a:hover::after, .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+/* aria-current marks the blog page, or the home section in view while scrolling */
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a[aria-current]::after { transform: scaleX(1); }
 
 .nav-toggle {
   display: none; background: none; border: 0; cursor: pointer;
@@ -173,15 +175,36 @@ ul, ol { list-style: none; }
 
 /* ---------------- Backdrop (full-bleed personal collage) ---------------- */
 
-.backdrop { position: absolute; top: 0; left: 0; right: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.backdrop img {
-  display: block; width: 100%; height: auto;
-  filter: blur(1.5px) brightness(0.55);
-}
+/* The collage is pinned to the viewport and pans with the page: its top shows
+   at scroll 0 and its last photo meets the viewport bottom at the footer.
+   The picture slides down by the box height while the image slides up by its
+   own height, so the end state is exact on every screen. */
+.backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.backdrop picture { display: block; height: 100%; }
+/* Blur and desaturation are baked into the collage files, so the only live
+   filter is a brightness drop. */
+.backdrop img { display: block; width: 100%; height: auto; filter: brightness(0.6); }
+/* Two scrims. ::after is the constant base; ::before is a veil of solid ink
+   that rises over the first viewport of scroll, so the hero shows the collage
+   and the sections below sit on near-solid ink with the collage just behind. */
 .backdrop::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(rgba(11, 13, 20, 0.55) 0%, rgba(11, 13, 20, 0.78) 60%, var(--bg) 100%);
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(rgba(11, 13, 20, 0.84), rgba(11, 13, 20, 0.72) calc(var(--nav-h) * 2));
 }
+.backdrop::before {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: var(--bg); opacity: 0;
+}
+.backdrop.backdrop-js::before { opacity: var(--veil, 0); }
+@supports (animation-timeline: scroll()) {
+  .backdrop picture, .backdrop img, .backdrop::before { animation: linear both; animation-timeline: scroll(root block); }
+  .backdrop picture { animation-name: backdrop-box; }
+  .backdrop img { animation-name: backdrop-image; }
+  .backdrop::before { animation-name: backdrop-veil; animation-range: 0 100vh; }
+}
+@keyframes backdrop-box { to { transform: translate3d(0, 100%, 0); } }
+@keyframes backdrop-image { to { transform: translate3d(0, -100%, 0); } }
+@keyframes backdrop-veil { from { opacity: 0; } to { opacity: 0.75; } }
 
 /* ---------------- Hero ---------------- */
 
@@ -195,7 +218,7 @@ ul, ol { list-style: none; }
 .hero-inner {
   position: relative; z-index: 1;
   max-width: var(--max-w); margin: 0 auto; width: 100%;
-  display: grid; grid-template-columns: 280px minmax(0, 1fr);
+  display: grid; grid-template-columns: 300px minmax(0, 1fr);
   grid-template-areas: "portrait heading" "portrait bio" "portrait contacts";
   column-gap: var(--s-16); row-gap: var(--s-6); align-items: start;
 }
@@ -219,7 +242,7 @@ ul, ol { list-style: none; }
 }
 .hero-role { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); font-size: var(--fs-xs); color: var(--ink-2); margin-top: var(--s-4); }
 .hero-role span + span { padding-left: var(--s-4); border-left: 1px solid var(--rule-strong); }
-.hero-bio { grid-area: bio; font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); max-width: 36rem; }
+.hero-bio { grid-area: bio; font-size: var(--fs-md); line-height: 1.55; color: var(--ink-2); max-width: 38rem; }
 .hero-contacts { grid-area: contacts; min-width: 0; padding-top: var(--s-2); }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); }
 .hero-actions .btn + .btn { margin-left: calc(-1 * var(--s-3)); }
@@ -251,22 +274,25 @@ body.home main { position: relative; z-index: 1; }
 .section {
   position: relative;
   display: flex; flex-direction: column; justify-content: center;
-  padding: var(--s-12) var(--s-6);
+  /* Sized so the page is about as tall as the collage at desktop widths */
+  padding: var(--s-32) var(--s-6);
 }
-#work { padding-top: var(--s-4); }
+#work { padding-top: var(--s-16); }
 .container { position: relative; z-index: 1; max-width: var(--max-w); margin: 0 auto; width: 100%; }
 
 /* Signature: the academic section mark */
 .section-label { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); margin-bottom: var(--s-3); }
-.section-title { font-size: var(--fs-xl); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: var(--s-8); text-wrap: balance; }
+.section-title { font-size: var(--fs-xl); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: var(--s-10); text-wrap: balance; }
 
-/* ---------------- Work: research pair + asymmetric project grid ---------------- */
+/* ---------------- Work: research pair + project rows sized to their figures ---------------- */
 
-.work-intro { max-width: 36rem; color: var(--ink-2); margin: calc(-1 * var(--s-4)) 0 var(--s-8); }
+.work-intro { max-width: 38rem; color: var(--ink-2); margin: calc(-1 * var(--s-5)) 0 var(--s-10); }
 .research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
-.project-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-5); }
-.project-card:nth-child(6n + 1), .project-card:nth-child(6n + 4), .project-card:nth-child(6n + 5) { grid-column: span 7; }
-.project-card:nth-child(6n + 2), .project-card:nth-child(6n + 3), .project-card:nth-child(6n + 6) { grid-column: span 5; }
+.project-grid { display: flex; flex-direction: column; gap: var(--s-5); }
+.project-row { display: flex; gap: var(--s-5); }
+/* Width grows with the figure's ratio; the 18px basis cancels the card border (2)
+   and the media margin (16), so both figures in a row get the same height. */
+.project-row > .project-card { flex: calc(var(--ratio)) 1 18px; }
 .proj {
   position: relative; min-width: 0; overflow: hidden; display: flex; flex-direction: column;
   background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r-lg);
@@ -303,19 +329,11 @@ body.home main { position: relative; z-index: 1; }
 }
 .project-media picture { display: block; width: 100%; height: 100%; }
 .project-media img { width: 100%; height: 100%; object-fit: contain; }
-/* Keep paired captions aligned while showing every supplied figure in full. */
+/* Each figure fills a box of its own ratio: nothing is cropped or letterboxed. */
 .project-card .project-media {
-  height: clamp(260px, 30vw, 360px); aspect-ratio: auto; flex-shrink: 0;
-  background: #fff;
+  aspect-ratio: var(--ratio); padding: 0; flex-shrink: 0;
+  background: var(--media-bg, #fff);
 }
-.media-narrativegraph { --image-ratio: 1; }
-.media-tp53 { --image-ratio: 1500 / 1200; }
-.media-scene-graph { --image-ratio: 1586 / 732; }
-.media-two-view { --image-ratio: 1488 / 876; }
-.media-diffusion { --image-ratio: 2782 / 2770; }
-.media-pydeia { --image-ratio: 1919 / 906; }
-.project-card .media-scene-graph, .project-card .media-two-view { height: clamp(220px, 25vw, 300px); }
-.project-card .media-pydeia { background: #192c3d; }
 
 /* Paper covers: the title page lifts, the page count follows a beat later */
 .paper-cover { aspect-ratio: 1.8; padding: var(--s-5) var(--s-5) 0; transition: transform var(--t-press) var(--ease); }
@@ -337,7 +355,7 @@ body.home main { position: relative; z-index: 1; }
 
 .work-divider {
   display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
-  padding: var(--s-12) 0 var(--s-4); color: var(--ink-3); font-size: var(--fs-xs);
+  padding: var(--s-24) 0 var(--s-4); color: var(--ink-3); font-size: var(--fs-xs);
 }
 .project-media.is-loading::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -358,23 +376,41 @@ body.reader-open { position: fixed; width: 100%; overflow: hidden; }
   /* Grows out of the cover or button that opened it, and returns there */
   transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
   opacity: 0; transform: scale(0.96);
-  transition: opacity var(--t-menu) var(--ease), transform var(--t-menu) var(--ease),
+  /* Closing mirrors opening: the same curve run backwards */
+  transition: opacity var(--t-menu) var(--ease-in), transform var(--t-menu) var(--ease-in),
               overlay var(--t-menu) allow-discrete, display var(--t-menu) allow-discrete;
 }
 .paper-dialog[open] {
   display: flex; flex-direction: column; opacity: 1; transform: none;
-  transition-duration: var(--t-enter);
+  transition: opacity var(--t-enter) var(--ease), transform var(--t-enter) var(--ease),
+              overlay var(--t-enter) allow-discrete, display var(--t-enter) allow-discrete;
 }
 .paper-dialog::backdrop {
   background: rgba(3, 4, 8, 0.82); opacity: 0;
-  transition: opacity var(--t-menu) var(--ease), overlay var(--t-menu) allow-discrete, display var(--t-menu) allow-discrete;
+  transition: opacity var(--t-menu) var(--ease-in), overlay var(--t-menu) allow-discrete, display var(--t-menu) allow-discrete;
 }
-.paper-dialog[open]::backdrop { opacity: 1; }
+.paper-dialog[open]::backdrop { opacity: 1; transition-timing-function: var(--ease); }
 @starting-style {
   .paper-dialog[open] { opacity: 0; transform: scale(0.96); }
   .paper-dialog[open]::backdrop { opacity: 0; }
 }
-.paper-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--rule); }
+/* While a finger drags the sheet, the transform is the finger's; nothing eases.
+   A flung sheet is already off screen, so it closes without the exit transition. */
+.paper-dialog.is-dragging { transition: none; will-change: transform; }
+.paper-dialog.is-flung { transition: none; transform: translate3d(0, 100%, 0); opacity: 0; }
+.paper-dialog-header {
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+  padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--rule);
+  touch-action: none;
+}
+/* On touch screens the header is a grabber: swipe down to close */
+@media (pointer: coarse) and (max-width: 639px) {
+  .paper-dialog-header { padding-top: var(--s-5); }
+  .paper-dialog-header::before {
+    content: ""; position: absolute; top: var(--s-2); left: 50%; width: 36px; height: 4px;
+    margin-left: -18px; border-radius: 2px; background: var(--rule-strong);
+  }
+}
 .reader-label { color: var(--ink-3); font-size: var(--fs-xs); margin-bottom: var(--s-1); }
 .paper-dialog-header h2 { font-size: var(--fs-base); line-height: 1.35; }
 .reader-close {
@@ -422,7 +458,7 @@ body.reader-open { position: fixed; width: 100%; overflow: hidden; }
 .path-date { font-size: var(--fs-xs); color: var(--ink-2); font-variant-numeric: tabular-nums; }
 .path-loc { font-size: var(--fs-xs); color: var(--ink-3); }
 .path-body h3 { font-size: var(--fs-md); margin-bottom: var(--s-1); letter-spacing: -0.01em; }
-.path-desc { color: var(--ink-2); font-size: var(--fs-sm); max-width: 36rem; }
+.path-desc { color: var(--ink-2); font-size: var(--fs-sm); max-width: 38rem; }
 .path-upcoming {
   font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-2);
   border: 1px solid var(--rule-strong); padding: 0 var(--s-2); border-radius: var(--r-sm);
@@ -440,15 +476,10 @@ body.reader-open { position: fixed; width: 100%; overflow: hidden; }
 .path-sub-body h4 { font-size: var(--fs-base); font-weight: 500; margin-bottom: var(--s-1); }
 .path-sub-note { font-size: var(--fs-sm); line-height: 1.55; color: var(--ink-3); }
 
-/* ---------------- Skills: capability columns ---------------- */
+/* ---------------- Skills: one quiet three-column list ---------------- */
 
-.skill-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); }
-.skill-col {
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: var(--r-lg);
-  padding: var(--s-6);
-}
+.skill-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 var(--s-8); }
+.skill-col { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
 .skill-col h3 { font-size: var(--fs-base); font-weight: 600; margin-bottom: var(--s-2); }
 .skill-col ul { display: flex; flex-direction: column; }
 .skill-col li { padding: var(--s-3) 0; font-size: var(--fs-sm); color: var(--ink-2); border-bottom: 1px solid var(--rule); }
@@ -461,10 +492,10 @@ body.reader-open { position: fixed; width: 100%; overflow: hidden; }
 
 #contact .container { text-align: center; }
 #contact .section-title { margin-bottom: var(--s-4); }
-.contact-sub { color: var(--ink-2); max-width: 36rem; margin: 0 auto var(--s-8); }
+.contact-sub { color: var(--ink-2); max-width: 38rem; margin: 0 auto var(--s-8); }
 .contact-email {
   display: inline-block;
-  font-family: var(--font-sans); font-weight: 600; font-size: clamp(1.25rem, 1rem + 1.2vw, 1.75rem);
+  font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-lg);
   color: var(--ink); margin-bottom: var(--s-6); letter-spacing: -0.01em;
   padding-bottom: var(--s-1);
   border-bottom: 1px solid var(--rule-strong);
@@ -479,7 +510,7 @@ body.reader-open { position: fixed; width: 100%; overflow: hidden; }
   position: relative;
   display: flex; flex-direction: column; justify-content: center; gap: var(--s-2);
   border-top: 1px solid var(--rule);
-  padding: var(--s-8) var(--s-6); text-align: center;
+  padding: var(--s-16) var(--s-6); text-align: center;
 }
 .footer p { color: var(--ink-3); font-size: var(--fs-sm); }
 .footer a { color: var(--ink-2); display: inline-flex; align-items: center; min-height: 44px; transition: color var(--t-fast) var(--ease); }
@@ -502,7 +533,7 @@ html.reveal .reveal-target.is-in { opacity: 1; transform: none; }
 /* ---------------- Blog (shared surface language) ---------------- */
 
 body.blog { background-color: var(--bg); }
-body.blog .section { justify-content: flex-start; }
+body.blog .section { justify-content: flex-start; padding-block: var(--s-12); }
 body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
 
 .page-hero {
@@ -511,7 +542,7 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
 }
 .page-hero .tag { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--ink-3); }
 .page-hero h1 { font-size: var(--fs-xl); line-height: 1.15; margin-top: var(--s-3); letter-spacing: -0.02em; }
-.page-hero p { color: var(--ink-2); margin-top: var(--s-3); max-width: 36rem; }
+.page-hero p { color: var(--ink-2); margin-top: var(--s-3); max-width: 38rem; }
 
 .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--s-5); }
 .blog-card {
@@ -592,9 +623,7 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
 /* ---------------- Responsive ---------------- */
 
 @media (max-width: 900px) {
-  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .project-grid .project-card { grid-column: auto; }
-  .skill-cols { grid-template-columns: 1fr; }
+  .skill-cols { grid-template-columns: 1fr; gap: var(--s-6) 0; }
 }
 
 @media (max-width: 860px) {
@@ -610,7 +639,10 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
   .path-subs { margin-left: var(--s-8); }
   .path-sub { grid-template-columns: 1fr; gap: var(--s-1); }
   .path-sub-when { text-align: left; padding-top: 0; order: -1; }
-  .section { padding: var(--s-8) var(--s-5); }
+  .section { padding: var(--s-12) var(--s-5); }
+  #work { padding-top: var(--s-4); }
+  body.blog .section { padding-block: var(--s-8); }
+  .work-divider { padding-top: var(--s-12); }
   .page-hero { padding: calc(var(--nav-h) + var(--s-10)) var(--s-5) var(--s-6); }
 
   .nav-toggle { display: flex; }
@@ -622,7 +654,7 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
     border-bottom: 1px solid var(--rule);
     /* Menu drops a few pixels from the bar it belongs to */
     opacity: 0; visibility: hidden; transform: translateY(-8px);
-    transition: opacity var(--t-menu) var(--ease), transform var(--t-menu) var(--ease), visibility 0s linear var(--t-menu);
+    transition: opacity var(--t-menu) var(--ease-in), transform var(--t-menu) var(--ease-in), visibility 0s linear var(--t-menu);
   }
   .nav-links.open {
     opacity: 1; visibility: visible; transform: none;
@@ -638,14 +670,16 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
   .hero-institution { margin-bottom: var(--s-2); }
   .hero-role { margin-top: var(--s-2); }
   .hero-bio { font-size: var(--fs-base); }
+  .post-body p:first-of-type { font-size: var(--fs-base); }
   .hero-actions { gap: var(--s-2) var(--s-5); }
   .hero-actions .btn { flex: 1 1 auto; }
   .hero-actions .btn + .btn { margin-left: 0; }
 }
 
 @media (max-width: 639px) {
-  .research-grid, .project-grid { grid-template-columns: minmax(0, 1fr); }
-  .project-card .project-media { height: auto; aspect-ratio: var(--image-ratio); }
+  .research-grid { grid-template-columns: minmax(0, 1fr); }
+  .project-row { flex-direction: column; }
+  .project-row > .project-card { flex: none; }
   .proj-content { padding: var(--s-5); }
   .paper-cover { aspect-ratio: 1.7; }
   .paper-dialog { width: 100%; height: 100vh; height: 100dvh; max-height: 100dvh; border: 0; border-radius: 0; }
@@ -664,10 +698,36 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
     transition-delay: 0s !important;
   }
   html.reveal .reveal-target { opacity: 1; transform: none; }
+  /* The collage stops panning: it sits at the top of the page and fades out */
+  .backdrop {
+    position: absolute; inset: 0 0 auto; max-height: 100%;
+    -webkit-mask-image: linear-gradient(#000 calc(100% - var(--s-24) * 3), transparent);
+    mask-image: linear-gradient(#000 calc(100% - var(--s-24) * 3), transparent);
+  }
+  .backdrop picture { height: auto; }
+  .backdrop picture, .backdrop img, .backdrop::before { animation: none; transform: none; }
+  /* The veil becomes a fixed gradient: clear over the hero, 75% ink from one viewport down */
+  .backdrop::before, .backdrop.backdrop-js::before {
+    opacity: 0.75;
+    background: linear-gradient(transparent, var(--bg) 100vh);
+  }
   .paper-cover:hover img, .paper-cover:hover .paper-stamp { transform: none; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .nav.scrolled { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .proj, .skill-col, .blog-card { background: var(--surface-solid); }
+  .proj, .blog-card { background: var(--surface-solid); }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --rule: rgba(238, 240, 245, 0.3);
+    --rule-strong: rgba(238, 240, 245, 0.5);
+    --ink-2: #d3d7e0;
+    --ink-3: #b0b6c4;
+  }
+  .nav.scrolled { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .proj, .blog-card { background: var(--surface-solid); }
+  .backdrop::after { background: rgba(11, 13, 20, 0.9); }
+  .btn-ghost, .reader-close { border-color: var(--rule-strong); }
 }

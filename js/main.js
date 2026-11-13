@@ -50,6 +50,39 @@
     onScroll();
   }
 
+  /* ---------- Backdrop pan fallback ---------- */
+
+  /* CSS scroll-driven animation pans the collage where it exists. Elsewhere,
+     and only when motion is allowed, do the same from a throttled scroll handler. */
+  const backdrop = $(".backdrop");
+  const backdropImg = backdrop && $("img", backdrop);
+  if (backdropImg &&
+      !(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()")) &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let queued = false;
+    backdrop.classList.add("backdrop-js");
+    const pan = () => {
+      queued = false;
+      const range = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 0;
+      const travel = Math.max(0, backdropImg.offsetHeight - backdrop.clientHeight);
+      backdropImg.style.transform = "translate3d(0," + (-progress * travel).toFixed(1) + "px,0)";
+      // The ink veil rises over the first viewport of scroll, like the CSS animation-range.
+      const veil = Math.min(1, window.scrollY / Math.max(1, window.innerHeight)) * 0.75;
+      backdrop.style.setProperty("--veil", veil.toFixed(3));
+    };
+    const requestPan = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(pan);
+    };
+    window.addEventListener("scroll", requestPan, { passive: true });
+    window.addEventListener("resize", requestPan);
+    window.addEventListener("load", requestPan);
+    backdropImg.addEventListener("load", requestPan);
+    pan();
+  }
+
   /* ---------- Footer year ---------- */
 
   const year = $("#year");
@@ -168,11 +201,30 @@
     }
   }
 
+  /* Wayfinding: on the home page the nav marks the section in view. A thin band
+     at the middle of the viewport decides, so exactly one section is current. */
+  const sectionLinks = $$('.nav-links a[href^="#"]').filter((a) => a.hash.length > 1 && $(a.hash));
+  if (sectionLinks.length && "IntersectionObserver" in window) {
+    const byId = new Map(sectionLinks.map((a) => [a.hash.slice(1), a]));
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const link = byId.get(entry.target.id);
+        if (entry.isIntersecting) {
+          sectionLinks.forEach((a) => { if (a !== link) a.removeAttribute("aria-current"); });
+          link.setAttribute("aria-current", "location");
+        } else if (link.hasAttribute("aria-current")) {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }, { rootMargin: "-45% 0px -45% 0px" });
+    byId.forEach((link, id) => spy.observe($("#" + id)));
+  }
+
   /* The reader and PDF.js stay off the initial loading path. The small reader
      module (not PDF.js) is fetched on hover/focus so the first click opens at once. */
   let readerModule;
   const loadReader = () => {
-    readerModule ||= import(new URL("js/paper-reader.js?v=6", root).href)
+    readerModule ||= import(new URL("js/paper-reader.js?v=7", root).href)
       .catch((err) => { readerModule = null; throw err; });
     return readerModule;
   };

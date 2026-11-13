@@ -99,6 +99,11 @@ export function openPaper(id, trigger) {
     scrollPosition = window.scrollY;
     document.body.style.top = `-${scrollPosition}px`;
     document.body.classList.add("reader-open");
+    // A sheet flung away last time comes back on the normal path.
+    settle?.cancel();
+    settle = null;
+    dialog.classList.remove("is-flung", "is-dragging");
+    dialog.style.transform = "";
     dialog.showModal();
     // Grow from the cover or button that was clicked (spatial continuity).
     const from = trigger?.getBoundingClientRect?.();
@@ -137,3 +142,72 @@ dialog.addEventListener("close", () => {
   returnFocus?.focus({ preventScroll: true });
 });
 document.getElementById("paperRetry").addEventListener("click", () => loadPaper(activeId));
+
+/* Swipe down on the header to close (touch and pen). The sheet follows the
+   finger 1:1 from where it was grabbed, resists when pulled upward, projects
+   the release velocity to decide, and settles from its live position, so it
+   can be grabbed again mid-flight. */
+const header = dialog.querySelector(".paper-dialog-header");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let drag = null, settle = null;
+const project = (velocity, rate = 0.998) => ((velocity / 1000) * rate) / (1 - rate);
+const rubberband = (offset, size, c = 0.55) => (offset * size * c) / (size + c * Math.abs(offset));
+const liveY = () => new DOMMatrixReadOnly(getComputedStyle(dialog).transform).m42;
+
+header.addEventListener("pointerdown", (event) => {
+  if (event.pointerType === "mouse" || event.button !== 0 || event.target.closest("button, a")) return;
+  const y = settle ? liveY() : 0;
+  settle?.cancel();
+  settle = null;
+  drag = { id: event.pointerId, startY: event.clientY, offset: event.clientY - y, moved: false,
+           history: [[event.clientY, event.timeStamp]] };
+  header.setPointerCapture(event.pointerId);
+  dialog.classList.add("is-dragging");
+  dialog.style.transform = `translate3d(0, ${y}px, 0)`;
+});
+
+header.addEventListener("pointermove", (event) => {
+  if (!drag || event.pointerId !== drag.id) return;
+  if (!drag.moved && Math.abs(event.clientY - drag.startY) < 10) return; // hysteresis
+  drag.moved = true;
+  let y = event.clientY - drag.offset;
+  if (y < 0) y = rubberband(y, dialog.offsetHeight);
+  dialog.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+  drag.history.push([event.clientY, event.timeStamp]);
+  if (drag.history.length > 5) drag.history.shift();
+});
+
+const release = (event) => {
+  if (!drag || event.pointerId !== drag.id) return;
+  const { moved, history } = drag;
+  drag = null;
+  dialog.classList.remove("is-dragging");
+  const height = dialog.offsetHeight;
+  const y = liveY();
+  const [y1, t1] = history[0], [y2, t2] = history[history.length - 1];
+  const velocity = t2 > t1 ? ((y2 - y1) / (t2 - t1)) * 1000 : 0; // px/s, down is positive
+  // An upward flick always returns; otherwise the projected rest point decides.
+  const dismiss = moved && velocity > -200 && y + project(velocity) > height * 0.4;
+  const target = dismiss ? height : 0;
+  const finish = () => {
+    settle = null;
+    if (dismiss) { dialog.classList.add("is-flung"); dialog.close(); }
+    else dialog.style.transform = "";
+  };
+  if (reducedMotion.matches || !dialog.animate) {
+    dialog.style.transform = `translate3d(0, ${target}px, 0)`;
+    finish();
+    return;
+  }
+  const distance = Math.abs(target - y);
+  // A dismissal keeps the finger's speed, linearly, until it is off screen;
+  // a return eases to rest on the shared curve.
+  const duration = Math.min(420, Math.max(140, (distance / Math.max(Math.abs(velocity), 800)) * 1000));
+  settle = dialog.animate(
+    [{ transform: `translate3d(0, ${y}px, 0)` }, { transform: `translate3d(0, ${target}px, 0)` }],
+    { duration, easing: dismiss ? "linear" : "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+  );
+  settle.onfinish = finish;
+};
+header.addEventListener("pointerup", release);
+header.addEventListener("pointercancel", release);
