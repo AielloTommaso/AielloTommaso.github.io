@@ -25,14 +25,14 @@ PDF.js needs a web server to load its modules and worker.
   Update it and the ordinary HTML PDF links together when replacing a paper.
 - The active viewer is retained while closed, preserving its page, zoom, and
   search and avoiding another download. Switching papers replaces that viewer.
-- Blog entries remain in `js/posts.js`. All font families are locally hosted.
+- All font families are locally hosted.
 - Asset provenance and licenses are recorded in `assets/SOURCES.md`.
 
 ## Checks before publishing
 
 Verify the home page at 360, 390, 768, 1024, and 1440 px; all eight images; both
 PDF previews and the thesis button; page navigation, zoom, text search, download,
-close/Escape and focus return; the CV links; navigation and blog links. Test a failed PDF request and
+close/Escape and focus return; the CV links; navigation links. Test a failed PDF request and
 retry, reduced motion, and the ordinary document links without JavaScript.
 The initial home page must not request PDF.js, its worker, or any PDF document.
 
