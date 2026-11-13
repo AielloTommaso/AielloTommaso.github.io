@@ -67,7 +67,7 @@
   if (blogGrid && typeof blogPosts !== "undefined") {
     if (!blogPosts.length) {
       blogGrid.innerHTML =
-        '<p class="empty-state">No posts yet. Check back soon!</p>';
+        '<p class="empty-state">No posts yet</p>';
     } else {
       blogGrid.innerHTML = blogPosts
         .slice()
@@ -99,8 +99,9 @@
   const postRoot = $("#postRoot");
   if (postRoot && typeof blogPosts !== "undefined") {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const post = blogPosts.find((p) => p.id === id);
+    // Be liberal in what we accept: tolerate stray case and whitespace in shared links.
+    const id = (params.get("id") || "").trim().toLowerCase();
+    const post = blogPosts.find((p) => p.id.toLowerCase() === id);
 
     if (!post) {
       postRoot.innerHTML =
@@ -122,7 +123,6 @@
             "</div>" +
           "</header>" +
           '<div class="post-body">' + post.content + "</div>" +
-          '<p class="post-end-tag">✦</p>' +
           '<footer class="post-footer"><a href="' + escapeHtml(root + "blog/") +
             '">Back to all posts →</a></footer>' +
         "</article>";
@@ -148,15 +148,43 @@
     else media.classList.add("is-loading");
   });
 
-  /* The reader and PDF.js stay off the initial loading path. */
+  /* Sections below the fold fade and rise once as they arrive.
+     Opt-in: without JS, IntersectionObserver or with reduced motion, nothing is hidden. */
+  if ("IntersectionObserver" in window &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const targets = $$(".section > .container").filter(
+      (el) => el.getBoundingClientRect().top > window.innerHeight
+    );
+    if (targets.length) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -8% 0px" });
+      targets.forEach((el) => { el.classList.add("reveal-target"); io.observe(el); });
+      document.documentElement.classList.add("reveal");
+    }
+  }
+
+  /* The reader and PDF.js stay off the initial loading path. The small reader
+     module (not PDF.js) is fetched on hover/focus so the first click opens at once. */
   let readerModule;
+  const loadReader = () => {
+    readerModule ||= import(new URL("js/paper-reader.js?v=6", root).href)
+      .catch((err) => { readerModule = null; throw err; });
+    return readerModule;
+  };
   $$("[data-paper]").forEach((link) => {
+    const prefetch = () => { loadReader().catch(() => {}); };
+    link.addEventListener("pointerenter", prefetch, { once: true });
+    link.addEventListener("focus", prefetch, { once: true });
     link.addEventListener("click", (event) => {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
           typeof HTMLDialogElement === "undefined" || !HTMLDialogElement.prototype.showModal) return;
       event.preventDefault();
-      readerModule ||= import(new URL("js/paper-reader.js?v=5", root).href);
-      readerModule.then((reader) => reader.openPaper(link.dataset.paper, link)).catch(() => {
+      loadReader().then((reader) => reader.openPaper(link.dataset.paper, link)).catch(() => {
         readerModule = null;
         window.location.assign(link.href);
       });

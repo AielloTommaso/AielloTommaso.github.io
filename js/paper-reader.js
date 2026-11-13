@@ -100,6 +100,13 @@ export function openPaper(id, trigger) {
     document.body.style.top = `-${scrollPosition}px`;
     document.body.classList.add("reader-open");
     dialog.showModal();
+    // Grow from the cover or button that was clicked (spatial continuity).
+    const from = trigger?.getBoundingClientRect?.();
+    const box = dialog.getBoundingClientRect();
+    if (from && box.width) {
+      dialog.style.setProperty("--origin-x", `${from.left + from.width / 2 - box.left}px`);
+      dialog.style.setProperty("--origin-y", `${from.top + from.height / 2 - box.top}px`);
+    }
     closeButton.focus();
   }
   if (activeId !== id || !frame || state === "error") loadPaper(id);
