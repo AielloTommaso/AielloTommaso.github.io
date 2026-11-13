@@ -8,24 +8,10 @@
   <meta name="description" content="Tommaso Aiello — MSc Artificial Intelligence at Bocconi University. Research in statistical physics and diffusion processes, generative models, and applied mathematics." />
   <link rel="preload" href="assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=11" />
+  <link rel="stylesheet" href="css/style.css?v=10" />
 </head>
 <body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="topbar-mail">
-        <a href="mailto:tommasoaiello0804@gmail.com" class="topbar-email"><span class="topbar-email-full">tommasoaiello0804@gmail.com</span><span class="topbar-email-short">Email</span></a>
-        <button type="button" class="topbar-copy" data-copy="tommasoaiello0804@gmail.com" aria-label="Copy email address" hidden><span aria-live="polite">Copy</span></button>
-      </div>
-      <nav class="topbar-links" aria-label="Contact">
-        <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="assets/CV_Tommaso_Aiello.pdf" download>CV</a>
-      </nav>
-    </div>
-  </div>
 
   <header class="nav" id="nav">
     <div class="nav-inner">
@@ -35,6 +21,7 @@
         <a href="#path">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
+        <a href="blog/">Blog</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
@@ -44,8 +31,8 @@
 
   <div class="backdrop" aria-hidden="true">
     <picture>
-      <source type="image/avif" srcset="assets/collage-v5-720.avif 720w, assets/collage-v5-1080.avif 1080w, assets/collage-v5-1440.avif 1440w" sizes="100vw">
-      <img src="assets/collage-v5-900.jpg" srcset="assets/collage-v5-900.jpg 900w, assets/collage-v5-1800.jpg 1800w" sizes="100vw" width="1800" height="9500" fetchpriority="low" decoding="async" alt="">
+      <source type="image/avif" srcset="assets/collage-v4-720.avif 720w, assets/collage-v4-1080.avif 1080w, assets/collage-v4-1440.avif 1440w" sizes="100vw">
+      <img src="assets/collage-v4-900.jpg" srcset="assets/collage-v4-900.jpg 900w, assets/collage-v4-1800.jpg 1800w" sizes="100vw" width="1800" height="9500" fetchpriority="low" decoding="async" alt="">
     </picture>
   </div>
 
@@ -129,12 +116,12 @@
         <div class="project-grid" aria-label="GitHub projects">
           <div class="project-row">
             <article class="proj project-card" style="--ratio: 1200/830; --media-bg: #000;">
-              <a class="project-media" href="assets/projects/narrativegraph-v3.jpg" data-zoom aria-label="Enlarge figure: NarrativeGraph">
+              <div class="project-media">
                 <picture>
                   <source type="image/avif" srcset="assets/projects/narrativegraph-v3-640.avif 640w, assets/projects/narrativegraph-v3-1200.avif 1200w" sizes="(max-width: 639px) calc(100vw - 58px), 640px">
                   <img src="assets/projects/narrativegraph-v3.jpg" alt="Ground-truth character-affinity graph for chapter 5 of Jude the Obscure, five characters linked by edges colored by affinity from 0 (red) to 1 (green)" width="1200" height="830" loading="lazy" decoding="async">
                 </picture>
-              </a>
+              </div>
               <div class="proj-content">
                 <p class="proj-kind mono">NLP · Character networks</p>
                 <h3 class="proj-title">NarrativeGraph</h3>
@@ -145,12 +132,12 @@
               </div>
             </article>
             <article class="proj project-card" style="--ratio: 1500/1200;">
-              <a class="project-media" href="assets/projects/tp53-v2.jpg" data-zoom aria-label="Enlarge figure: TP53 Mutation Classification">
+              <div class="project-media">
                 <picture>
                   <source type="image/webp" srcset="assets/projects/tp53-v2-640.webp 640w, assets/projects/tp53-v2-1200.webp 1200w" sizes="(max-width: 639px) calc(100vw - 58px), 640px">
                   <img src="assets/projects/tp53-v2.jpg" alt="Diagram of eukaryotic gene regulation showing transcription initiation and assembly of the transcription complex" width="1500" height="1200" loading="lazy" decoding="async">
                 </picture>
-              </a>
+              </div>
               <div class="proj-content">
                 <p class="proj-kind mono">Machine learning · Genomics</p>
                 <h3 class="proj-title">TP53 Mutation Classification</h3>
@@ -163,12 +150,12 @@
           </div>
           <div class="project-row">
             <article class="proj project-card" style="--ratio: 1200/542;">
-              <a class="project-media" href="assets/projects/scene-graph-v3.jpg" data-zoom aria-label="Enlarge figure: Anticipatory Scene Graph Generation">
+              <div class="project-media">
                 <picture>
                   <source type="image/avif" srcset="assets/projects/scene-graph-v3-640.avif 640w, assets/projects/scene-graph-v3-1200.avif 1200w" sizes="(max-width: 639px) calc(100vw - 58px), 640px">
                   <img src="assets/projects/scene-graph-v3.jpg" alt="A person holding a cup at a table, alongside a scene graph of objects and their relationships" width="1200" height="542" loading="lazy" decoding="async">
                 </picture>
-              </a>
+              </div>
               <div class="proj-content">
                 <p class="proj-kind mono">Computer vision · Video understanding</p>
                 <h3 class="proj-title">Anticipatory Scene Graph Generation</h3>
@@ -179,12 +166,12 @@
               </div>
             </article>
             <article class="proj project-card" style="--ratio: 1488/876;">
-              <a class="project-media" href="assets/projects/two-view-v2.jpg" data-zoom aria-label="Enlarge figure: Two-View 3D Reconstruction">
+              <div class="project-media">
                 <picture>
                   <source type="image/webp" srcset="assets/projects/two-view-v2-640.webp 640w, assets/projects/two-view-v2-1200.webp 1200w" sizes="(max-width: 639px) calc(100vw - 58px), 640px">
                   <img src="assets/projects/two-view-v2.jpg" alt="Two point-cloud reconstructions of the SDA Bocconi sign beside the corresponding original photographs" width="1488" height="876" loading="lazy" decoding="async">
                 </picture>
-              </a>
+              </div>
               <div class="proj-content">
                 <p class="proj-kind mono">Computer vision · Geometry</p>
                 <h3 class="proj-title">Two-View 3D Reconstruction</h3>
@@ -197,12 +184,12 @@
           </div>
           <div class="project-row">
             <article class="proj project-card" style="--ratio: 2782/2770;">
-              <a class="project-media" href="assets/projects/diffusion-v2.jpg" data-zoom aria-label="Enlarge figure: Diffusion Models on Hierarchical Data">
+              <div class="project-media">
                 <picture>
                   <source type="image/webp" srcset="assets/projects/diffusion-v2-640.webp 640w, assets/projects/diffusion-v2-1200.webp 1200w" sizes="(max-width: 639px) calc(100vw - 58px), 640px">
                   <img src="assets/projects/diffusion-v2.jpg" alt="Four-panel diffusion illustration showing a snow leopard, a wolf, and a butterfly at successive timesteps" width="2782" height="2770" loading="lazy" decoding="async">
                 </picture>
-              </a>
+              </div>
               <div class="proj-content">
                 <p class="proj-kind mono">BSc thesis · Generative models</p>
                 <h3 class="proj-title">Diffusion Models on Hierarchical Data</h3>
@@ -214,12 +201,12 @@
               </div>
             </article>
             <article class="proj project-card" style="--ratio: 800/720;">
-              <a class="project-media" href="assets/projects/pydeia-v3.jpg" data-zoom aria-label="Enlarge figure: Pydeia">
+              <div class="project-media">
                 <picture>
                   <source type="image/avif" srcset="assets/projects/pydeia-v3-640.avif 640w, assets/projects/pydeia-v3-800.avif 800w" sizes="(max-width: 639px) calc(100vw - 58px), 640px">
                   <img src="assets/projects/pydeia-v3.jpg" alt="Pydeia results screen recommending Università di Trento, Computer Science, with a 72% match score, key figures, strengths and considerations" width="800" height="720" loading="lazy" decoding="async">
                 </picture>
-              </a>
+              </div>
               <div class="proj-content">
                 <p class="proj-kind mono">Hackathon · Agentic AI</p>
                 <h3 class="proj-title">Pydeia</h3>
@@ -376,15 +363,12 @@
           and applied machine learning projects, particularly in generative modeling,
           diffusion processes, and statistical physics.
         </p>
-        <div class="contact-mail">
-          <a href="mailto:tommasoaiello0804@gmail.com" class="contact-email">tommasoaiello0804@<wbr>gmail.com</a>
-          <button type="button" class="btn btn-ghost contact-copy" data-copy="tommasoaiello0804@gmail.com" aria-label="Copy email address" hidden><span aria-live="polite">Copy</span></button>
-        </div>
+        <a href="mailto:tommasoaiello0804@gmail.com" class="contact-email">tommasoaiello0804@gmail.com</a>
         <div class="contact-row">
           <a href="tel:+393475182845" class="btn btn-ghost mono">+39 347 518 2845</a>
-          <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener" class="btn btn-ghost mono">GitHub <span aria-hidden="true">↗</span></a>
-          <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener" class="btn btn-ghost mono">LinkedIn <span aria-hidden="true">↗</span></a>
-          <a href="assets/CV_Tommaso_Aiello.pdf" class="btn btn-ghost mono" download>CV <span aria-hidden="true">↓</span></a>
+          <a href="https://github.com/AielloTommaso" target="_blank" rel="noopener" class="btn btn-ghost mono">GitHub</a>
+          <a href="https://www.linkedin.com/in/tommaso-aiello-a47674255/" target="_blank" rel="noopener" class="btn btn-ghost mono">LinkedIn</a>
+          <a href="assets/CV_Tommaso_Aiello.pdf" class="btn btn-ghost mono" download>CV</a>
         </div>
       </div>
     </section>
@@ -417,13 +401,6 @@
       <a id="paperOriginal" target="_blank" rel="noopener" class="read-link">Open original PDF <span aria-hidden="true">↗</span></a>
     </footer>
   </dialog>
-  <dialog class="image-dialog" id="imageDialog" aria-labelledby="imageDialogTitle">
-    <header class="dialog-header">
-      <div><p class="mono reader-label" id="imageDialogKind">Project</p><h2 id="imageDialogTitle">Figure</h2></div>
-      <button type="button" class="reader-close" id="imageClose" aria-label="Close figure" autofocus><span aria-hidden="true">×</span></button>
-    </header>
-    <div class="image-stage" id="imageStage"></div>
-  </dialog>
-  <script src="js/main.js?v=10" defer></script>
+  <script src="js/main.js?v=9" defer></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ============================================================
-   main.js — nav, copy email, image viewer, scroll reveal, helpers
+   main.js — nav, scroll reveal, blog rendering, helpers
    ============================================================ */
 
 (function () {
@@ -10,6 +10,18 @@
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
 
+  function formatDate(iso) {
+    const d = new Date(iso + "T00:00:00");
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
+  }
+
   /* ---------- Sticky nav + mobile toggle ---------- */
 
   const nav = $("#nav");
@@ -17,21 +29,18 @@
   const navLinks = $("#navLinks");
 
   if (navToggle && navLinks) {
-    const setMenu = (open) => {
-      navLinks.classList.toggle("open", open);
+    navToggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
       navToggle.classList.toggle("open", open);
       navToggle.setAttribute("aria-expanded", String(open));
-    };
-    navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
-    $$("a", navLinks).forEach((link) => link.addEventListener("click", () => setMenu(false)));
-    // The open menu also closes on Escape (focus returns to the toggle) and on any outside click.
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape" || !navLinks.classList.contains("open")) return;
-      setMenu(false);
-      navToggle.focus();
     });
-    document.addEventListener("click", (event) => {
-      if (navLinks.classList.contains("open") && !nav.contains(event.target)) setMenu(false);
+
+    $$("a", navLinks).forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        navToggle.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
     });
   }
 
@@ -51,8 +60,6 @@
       !(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()")) &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     let queued = false;
-    // Same cap as the CSS keyframe (--veil-max in style.css).
-    const veilMax = parseFloat(getComputedStyle(backdrop).getPropertyValue("--veil-max")) || 0.2;
     backdrop.classList.add("backdrop-js");
     const pan = () => {
       queued = false;
@@ -61,7 +68,7 @@
       const travel = Math.max(0, backdropImg.offsetHeight - backdrop.clientHeight);
       backdropImg.style.transform = "translate3d(0," + (-progress * travel).toFixed(1) + "px,0)";
       // The ink veil rises over the first viewport of scroll, like the CSS animation-range.
-      const veil = Math.min(1, window.scrollY / Math.max(1, window.innerHeight)) * veilMax;
+      const veil = Math.min(1, window.scrollY / Math.max(1, window.innerHeight)) * 0.75;
       backdrop.style.setProperty("--veil", veil.toFixed(3));
     };
     const requestPan = () => {
@@ -76,39 +83,86 @@
     pan();
   }
 
-  /* ---------- Copy email ---------- */
-
-  /* The address links stay plain mailto:. The copy buttons ship hidden and only
-     appear where the async clipboard API exists. */
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    $$("[data-copy]").forEach((button) => {
-      const label = button.querySelector("[aria-live]") || button;
-      let timer;
-      button.hidden = false;
-      button.addEventListener("click", () => {
-        const say = (text) => {
-          label.textContent = text;
-          clearTimeout(timer);
-          timer = setTimeout(() => { label.textContent = "Copy"; }, 1600);
-        };
-        navigator.clipboard.writeText(button.dataset.copy)
-          .then(() => say("Copied"), () => say("Couldn’t copy"));
-      });
-    });
-  }
-
   /* ---------- Footer year ---------- */
 
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
-  /* ---------- Site root (for lazy module URLs) ---------- */
+  /* ---------- Current page detection ---------- */
 
   const root = (function () {
     return new URL("../", document.currentScript.src).href;
   })();
 
+  /* ---------- Blog listing page ---------- */
 
+  const blogGrid = $("#blogGrid");
+  if (blogGrid && typeof blogPosts !== "undefined") {
+    if (!blogPosts.length) {
+      blogGrid.innerHTML =
+        '<p class="empty-state">No posts yet</p>';
+    } else {
+      blogGrid.innerHTML = blogPosts
+        .slice()
+        .sort((a, b) => (a.date < b.date ? 1 : -1))
+        .map((post) => {
+          const tags = (post.tags || [])
+            .map((t) => '<span class="tag-pill">' + escapeHtml(t) + "</span>")
+            .join("");
+          return (
+            '<article class="blog-card">' +
+              '<div class="tags">' + tags + "</div>" +
+              '<div class="card-meta"><time datetime="' + escapeHtml(post.date) + '">' +
+                formatDate(post.date) + '</time><span class="dot"></span><span>' +
+                escapeHtml(post.readTime || "5 min") + ' read</span></div>' +
+              "<h3><a href='" + escapeHtml(root + "blog/post.html") + "?id=" +
+                encodeURIComponent(post.id) + "'>" + escapeHtml(post.title) + "</a></h3>" +
+              "<p>" + escapeHtml(post.excerpt || "") + "</p>" +
+              '<a class="read-more" href="' + escapeHtml(root + "blog/post.html") +
+                "?id=" + encodeURIComponent(post.id) + '">Read more <span class="lk-arrow">→</span></a>' +
+            "</article>"
+          );
+        })
+        .join("");
+    }
+  }
+
+  /* ---------- Blog post page ---------- */
+
+  const postRoot = $("#postRoot");
+  if (postRoot && typeof blogPosts !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    // Be liberal in what we accept: tolerate stray case and whitespace in shared links.
+    const id = (params.get("id") || "").trim().toLowerCase();
+    const post = blogPosts.find((p) => p.id.toLowerCase() === id);
+
+    if (!post) {
+      postRoot.innerHTML =
+        '<div class="empty-state">' +
+          "<h2>Post not found</h2>" +
+          '<p class="back-home"><a href="' + escapeHtml(root + "blog/") + '">Back to the blog →</a></p>' +
+        "</div>";
+    } else {
+      postRoot.innerHTML =
+        '<article class="post-wrap">' +
+          '<a class="back-link" href="' + escapeHtml(root + "blog/") + '">← All posts</a>' +
+          '<header class="post-head">' +
+            '<div class="tags">' + (post.tags || []).map((t) =>
+              '<span class="tag-pill">' + escapeHtml(t) + "</span>").join("") + "</div>" +
+            "<h1>" + escapeHtml(post.title) + "</h1>" +
+            '<div class="post-meta">' +
+              '<time datetime="' + escapeHtml(post.date) + '">' + formatDate(post.date) + "</time>" +
+              "<span>·</span><span>" + escapeHtml(post.readTime || "5 min") + " read</span>" +
+            "</div>" +
+          "</header>" +
+          '<div class="post-body">' + post.content + "</div>" +
+          '<footer class="post-footer"><a href="' + escapeHtml(root + "blog/") +
+            '">Back to all posts →</a></footer>' +
+        "</article>";
+    }
+
+    document.title = (post ? post.title + " — " : "") + "Tommaso Aiello";
+  }
   /* Reserve image space in HTML; shimmer only while an image is pending. */
   $$(".project-media img").forEach((img) => {
     const media = img.closest(".project-media");
@@ -164,55 +218,6 @@
       });
     }, { rootMargin: "-45% 0px -45% 0px" });
     byId.forEach((link, id) => spy.observe($("#" + id)));
-  }
-
-  /* Project image viewer: the figure link opens a native dialog with the same
-     picture at full size. Without JS or <dialog> the link opens the JPEG. */
-  const imageDialog = $("#imageDialog");
-  if (imageDialog && typeof imageDialog.showModal === "function") {
-    const stage = $("#imageStage");
-    const kind = $("#imageDialogKind");
-    const title = $("#imageDialogTitle");
-    let returnFocus = null;
-    let scrollPosition = 0;
-    $$("[data-zoom]").forEach((link) => {
-      link.addEventListener("click", (event) => {
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        const card = link.closest(".project-card");
-        const picture = $("picture", link);
-        if (!card || !picture) return;
-        event.preventDefault();
-        returnFocus = link;
-        kind.textContent = $(".proj-kind", card).textContent;
-        title.textContent = $(".proj-title", card).textContent;
-        const copy = picture.cloneNode(true);
-        $$("source, img", copy).forEach((el) => el.setAttribute("sizes", "96vw"));
-        $("img", copy).removeAttribute("loading");
-        stage.replaceChildren(copy);
-        scrollPosition = window.scrollY;
-        document.body.style.top = `-${scrollPosition}px`;
-        document.body.classList.add("reader-open");
-        imageDialog.showModal();
-        // Grow from the figure that was clicked, like the paper reader.
-        const from = link.getBoundingClientRect();
-        const box = imageDialog.getBoundingClientRect();
-        imageDialog.style.setProperty("--origin-x", `${from.left + from.width / 2 - box.left}px`);
-        imageDialog.style.setProperty("--origin-y", `${from.top + from.height / 2 - box.top}px`);
-      });
-    });
-    $("#imageClose").addEventListener("click", () => imageDialog.close());
-    imageDialog.addEventListener("click", (event) => {
-      if (event.target !== imageDialog) return;
-      const rect = imageDialog.getBoundingClientRect();
-      if (event.clientX < rect.left || event.clientX > rect.right ||
-          event.clientY < rect.top || event.clientY > rect.bottom) imageDialog.close();
-    });
-    imageDialog.addEventListener("close", () => {
-      document.body.classList.remove("reader-open");
-      document.body.style.removeProperty("top");
-      window.scrollTo({ top: scrollPosition, behavior: "instant" });
-      returnFocus?.focus({ preventScroll: true });
-    });
   }
 
   /* The reader and PDF.js stay off the initial loading path. The small reader
