@@ -189,7 +189,7 @@ ul, ol { list-style: none; }
    and the sections below sit on near-solid ink with the collage just behind. */
 .backdrop::after {
   content: ""; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(rgba(11, 13, 20, 0.84), rgba(11, 13, 20, 0.72) calc(var(--nav-h) * 2));
+  background: linear-gradient(rgba(11, 13, 20, 0.84), rgba(11, 13, 20, 0.62) calc(var(--nav-h) * 2));
 }
 .backdrop::before {
   content: ""; position: absolute; inset: 0; z-index: 2;
@@ -204,7 +204,7 @@ ul, ol { list-style: none; }
 }
 @keyframes backdrop-box { to { transform: translate3d(0, 100%, 0); } }
 @keyframes backdrop-image { to { transform: translate3d(0, -100%, 0); } }
-@keyframes backdrop-veil { from { opacity: 0; } to { opacity: 0.75; } }
+@keyframes backdrop-veil { from { opacity: 0; } to { opacity: 0.45; } }
 
 /* ---------------- Hero ---------------- */
 
@@ -706,9 +706,9 @@ body.blog main.section { padding-top: calc(var(--nav-h) + var(--s-10)); }
   }
   .backdrop picture { height: auto; }
   .backdrop picture, .backdrop img, .backdrop::before { animation: none; transform: none; }
-  /* The veil becomes a fixed gradient: clear over the hero, 75% ink from one viewport down */
+  /* The veil becomes a fixed gradient: clear over the hero, 45% ink from one viewport down */
   .backdrop::before, .backdrop.backdrop-js::before {
-    opacity: 0.75;
+    opacity: 0.45;
     background: linear-gradient(transparent, var(--bg) 100vh);
   }
   .paper-cover:hover img, .paper-cover:hover .paper-stamp { transform: none; }

@@ -16,7 +16,7 @@ runtime. The `v2` and `v3` filenames prevent stale cached previews.
 - `projects/part-one-*`: first page rendered from `research-curie-weiss-diffusion.pdf`.
 - `projects/part-two-v2*`: first page rendered from the updated, 39-page `Diffusion_In_Reverse_Potential.pdf`, supplied by the owner on 2026-11-06.
 - `LFF3208266.pdf`: the owner's 39-page bachelor's thesis, supplied on 2026-11-06 and linked from the hierarchical diffusion project. The original PDF is served without modification.
-- `collage-v4-*`: personal photo collage supplied by the owner on 2026-11-13 as an 1800×9500 lossless master. Each variant is encoded from the master with a Gaussian blur (sigma 4–10, scaled with width) and saturation reduced to 60%, so the site needs no live blur filter. Committed as AVIF at 720, 1080 and 1440 px wide (the encoder's 8704 px height limit rules out an 1800 px AVIF) and JPEG fallbacks at 900 and 1800 px wide, all at the master's exact ratio. It replaces the earlier `background*` files, which were removed.
+- `collage-v6-*`: personal photo collage supplied by the owner on 2026-11-13 as an 1800×9500 lossless master. Each variant is encoded from the master with a light Gaussian blur (sigma 1–2.5, scaled with width) and saturation reduced to 75%, so the photos stay recognisable and the site needs no live blur filter. Committed as AVIF at 720, 1080 and 1440 px wide (the encoder's 8704 px height limit rules out an 1800 px AVIF) and JPEG fallbacks at 900 and 1800 px wide, at the master's ratio. It replaces the more heavily blurred `collage-v4-*` and the earlier `background*` files, which were removed.
 - `tommaso-aiello-*.webp`: compressed variants of the existing portrait; the original JPEG remains as the fallback.
 
 ## Fonts

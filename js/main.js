@@ -68,7 +68,7 @@
       const travel = Math.max(0, backdropImg.offsetHeight - backdrop.clientHeight);
       backdropImg.style.transform = "translate3d(0," + (-progress * travel).toFixed(1) + "px,0)";
       // The ink veil rises over the first viewport of scroll, like the CSS animation-range.
-      const veil = Math.min(1, window.scrollY / Math.max(1, window.innerHeight)) * 0.75;
+      const veil = Math.min(1, window.scrollY / Math.max(1, window.innerHeight)) * 0.45;
       backdrop.style.setProperty("--veil", veil.toFixed(3));
     };
     const requestPan = () => {
